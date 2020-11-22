@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthenticationModule } from './components/authentication/authentication.module';
+import { GeneralModule } from './components/general/general.module';
+import { SharedModule } from './components/shared/shared.module';
 import { MaterialModule } from './core/material/material.module';
 
 
@@ -12,9 +15,12 @@ import { MaterialModule } from './core/material/material.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    SharedModule,
+    GeneralModule,
+    AuthenticationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
