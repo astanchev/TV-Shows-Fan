@@ -7,6 +7,8 @@ import { AuthenticationModule } from './components/authentication/authentication
 import { GeneralModule } from './components/general/general.module';
 import { SharedModule } from './components/shared/shared.module';
 import { MaterialModule } from './core/material/material.module';
+import { storageServiceProvider } from './services/storage.service';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -22,7 +24,10 @@ import { MaterialModule } from './core/material/material.module';
     GeneralModule,
     AuthenticationModule,
   ],
-  providers: [],
+  providers: [
+    UserService,
+    storageServiceProvider,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
