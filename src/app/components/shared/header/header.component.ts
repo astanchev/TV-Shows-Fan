@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +32,18 @@ export class HeaderComponent implements OnInit {
 
   isNavOpen: boolean = false;
 
-  constructor(private renderer: Renderer2) { }
+  get isAdmin(): boolean {
+    return  this.userService.isAdmin;
+  }
+
+  get isLogged(): boolean {
+    return  this.userService.isLogged;
+  }
+
+  constructor(
+    private userService: UserService,
+    private renderer: Renderer2
+    ) { }
 
   ngOnInit(): void {
   }

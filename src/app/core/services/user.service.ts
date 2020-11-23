@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IUser } from '../core/interfaces/user';
-import { IUserLogin } from '../core/interfaces/user-login';
+import { IUser } from '../../core/interfaces/user';
+import { IUserLogin } from '../../core/interfaces/user-login';
 import { StorageService } from './storage.service';
 
 @Injectable()
@@ -36,6 +36,10 @@ export class UserService implements OnDestroy {
   }
 
   get isAdmin() {
+    if (!this.isLogged) {
+      return false;
+    }
+
     let userRoles: string[] = [];
     const url: string = environment.backendless.url + environment.backendless.endpoints.userRoles;
 

@@ -3,13 +3,13 @@
   <nav>
     <ul class="hidden-navigation-buttons">
       <li routerLink='/home'>Home</li>
-      <li routerLink='/about'>About</li>
-      <li>TV Shows</li>
-      <li>Users</li>
-      <li>Profile</li>
-      <li>Register</li>
-      <li>Login</li>
-      <li>Logout</li>
+      <li *ngIf="!isLogged" routerLink='/about'>About</li>
+      <li *ngIf="isLogged">TV Shows</li>
+      <li *ngIf="isAdmin">Users</li>
+      <li *ngIf="isLogged && !isAdmin">Profile</li>
+      <li *ngIf="!isLogged">Register</li>
+      <li *ngIf="!isLogged">Login</li>
+      <li *ngIf="isLogged">Logout</li>
     </ul>
   </nav>
 </section>
@@ -22,13 +22,13 @@
   </p>
   <nav>
     <ul class="navigation-buttons">
-      <li><a mat-button routerLink='/about'>About</a></li>
-      <li><a mat-button href="#">TV Shows</a></li>
-      <li><a mat-button href="#">Users</a></li>
-      <li><a mat-button href="#">Profile</a></li>
-      <li><a mat-button href="#">Register</a></li>
-      <li><a mat-button href="#">Login</a></li>
-      <li><a mat-button href="#">Logout</a></li>
+      <li *ngIf="!isLogged"><a mat-button routerLink='/about'>About</a></li>
+      <li *ngIf="isLogged"><a mat-button href="#">TV Shows</a></li>
+      <li *ngIf="isAdmin"><a mat-button href="#">Users</a></li>
+      <li *ngIf="isLogged && !isAdmin"><a mat-button href="#">Profile</a></li>
+      <li *ngIf="!isLogged"><a mat-button href="#">Register</a></li>
+      <li *ngIf="!isLogged"><a mat-button href="#">Login</a></li>
+      <li *ngIf="isLogged"><a mat-button href="#">Logout</a></li>
     </ul>
   </nav>
 </mat-toolbar>
