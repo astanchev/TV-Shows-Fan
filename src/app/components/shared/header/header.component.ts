@@ -20,6 +20,15 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  @HostListener('window:resize', ['$event']) onResize(event){
+    let pageWidth: number = event.target.innerWidth;
+
+    if (pageWidth > 899 && this.isNavOpen === true) {
+      this.renderer.setStyle(this.sidenav.nativeElement, 'display', 'none');
+      this.isNavOpen = false;
+    }
+  }
+
   isNavOpen: boolean = false;
 
   constructor(private renderer: Renderer2) { }
