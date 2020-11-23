@@ -1,31 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 
-.header{
-    box-shadow: 0px 5px 8px 0px rgba(255, 255, 255, 0.5);
+.hidden-navigation {
+  display: none;
 }
 
-.navigation{
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header-navigation {
+  padding: 0 3em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navigation-buttons{
-    display: flex;
-    list-style: none;
+.navigation-buttons {
+  display: flex;
+  list-style: none;
 }
 
-.navigation-logo{
-    margin: 0;
+.navigation-logo {
+  margin: 0;
 }
 
-.navigation-logo a{
-    color: goldenrod;
-    text-decoration: none;
-    font-family: 'Shadows Into Light', cursive;
-    font-size: 32px;
-    font-weight: bolder;
-    text-shadow: 1px 4px 7px rgba(150, 150, 150, 1);
+.navigation-logo a {
+  color: goldenrod;
+  text-decoration: none;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 32px;
+  font-weight: bolder;
+  text-shadow: 1px 4px 7px rgba(150, 150, 150, 1);
+}
+
+.mat-icon {
+  display: none;
+  cursor: pointer;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  padding: 0 5px;
+}
+
+.hidden-navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(244, 245, 245);
+  color: black;
+  flex-direction: column;
+}
+
+.hidden-navigation-buttons li {
+  list-style: none;
+  padding: 1.5em;
+  color: rgb(219, 187, 44);
+  font-weight: bold;
+}
+
+.hidden-navigation-buttons li:hover {
+  background-color: rgb(231, 228, 185);
+}
+
+.hidden-navigation-close {
+  font-size: 24px;
+  font-weight: bolder;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 0.5em 0;
+}
+
+.hidden-navigation .hidden-navigation-close:hover {
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 900px) {
+  .header-navigation {
+    padding-right: 10px;
+    padding-left: 5px;
+  }
+
+  .header-navigation .mat-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .navigation-buttons {
+    display: none;
+  }
 }

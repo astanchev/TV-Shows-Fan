@@ -1,0 +1,31 @@
+.about{
+    width: 60%;
+    margin: 5em auto;
+    text-align: center;
+}
+
+.about>h1{
+    font-size: 32px;
+    font-weight: bolder;
+    text-shadow: 4px 4px 10px rgba(187, 148, 20, 0.76);
+    margin-bottom: 40px;
+}
+
+.about>h5{
+    font-size: 18px;
+    font-weight: bolder;
+    font-style: oblique;
+    margin-bottom: 40px;
+}
+
+.about>P{
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.about-final{
+    font-style: oblique;
+    text-transform: uppercase;
+    color: aquamarine;
+}
