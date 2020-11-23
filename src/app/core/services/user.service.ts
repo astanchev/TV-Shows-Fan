@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,13 +16,6 @@ export class UserService implements OnDestroy {
   registerSub: Subscription;
   logoutSub: Subscription;
 
-  private contentHttpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  private tokenHttpOptions = {
-    headers: new HttpHeaders({ 'user-token': this.userToken })
-  };
-
   constructor(
     private storage: StorageService,
     private http: HttpClient) {
@@ -36,14 +29,15 @@ export class UserService implements OnDestroy {
   }
 
   get isAdmin() {
+
     if (!this.isLogged) {
       return false;
     }
 
     let userRoles: string[] = [];
-    const url: string = environment.backendless.url + environment.backendless.endpoints.userRoles;
+    const url: string = environment.backendless.endpoints.userRoles;
 
-    this.http.get<string[]>(url, this.tokenHttpOptions).subscribe((data) => userRoles.concat(data));
+    this.http.get<string[]>(url).subscribe((data) => userRoles.concat(data));
 
     if (userRoles.includes('Administrator')) {
       return true;
@@ -66,10 +60,10 @@ export class UserService implements OnDestroy {
       password: password
     };
 
-    const url: string = environment.backendless.url + environment.backendless.endpoints.login;
+    const url: string = environment.backendless.endpoints.login;
 
     this.loginSub = this.http
-      .post<IUserLogin>(url, JSON.stringify(user), this.contentHttpOptions)
+      .post<IUserLogin>(url, JSON.stringify(user))
       .subscribe(data => {
         this.username = data.username;
         this.userId = data.objectId;
@@ -86,10 +80,10 @@ export class UserService implements OnDestroy {
       password: password
     };
 
-    const url: string = environment.backendless.url + environment.backendless.endpoints.register;
+    const url: string = environment.backendless.endpoints.register;
 
     this.registerSub = this.http
-      .post<IUser>(url, JSON.stringify(user), this.contentHttpOptions)
+      .post<IUser>(url, JSON.stringify(user))
       .subscribe(data => {
         this.login(username, password);
       });
@@ -97,10 +91,10 @@ export class UserService implements OnDestroy {
   }
 
   logout(): void {
-    const url: string = environment.backendless.url + environment.backendless.endpoints.logout;
+    const url: string = environment.backendless.endpoints.logout;
 
     this.logoutSub = this.http
-      .get(url, this.tokenHttpOptions)
+      .get(url)
       .subscribe(_ => {
         this.username = '';
         this.userId = '';
