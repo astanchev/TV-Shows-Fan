@@ -3,14 +3,36 @@
     <img src="../../../../assets/tv-shows.png" alt="TV Shows collage">
   </article>
 
-  <article class="home-section-text">
-    <p class="text">
-      If you are a real tv shows fan this is the right place for you!
-    </p>
-    <p class="about">
+  <ng-template #notLogged>
+    <article class="home-section-text">
+      <p class="text">
+        If you are a real tv shows fan this is the right place for you!
+      </p>
+      <p>
         You want to find more about our site? Check our<a routerLink='/about'>About</a> section.
-    </p>
-    <p class="login">You already have an account? <a href="#">Log in</a></p>
-    <p class="register">You want to be part of our community? <a href="#">Register</a></p>
-  </article>
+      </p>
+      <p>You already have an account? <a href="#">Log in</a></p>
+      <p>You want to be part of our community? <a href="#">Register</a></p>
+    </article>
+  </ng-template>
+
+  <ng-template #logged>
+    <article class="home-section-text">
+      <p class="text">
+        Welcome to real TV Shows Fan site - the right place for you!
+      </p>
+      <p>
+        You want to see the shows? Check out<a href="#">TV Shows</a> section.
+      </p>
+      <ng-template #user>
+        <p>You want to make changes in your account? <a href="#">Profile</a></p>
+      </ng-template>
+      <ng-template #admin>
+        <p>You want to make changes in users comment sessions access? <a href="#">Register</a></p>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="isAdmin ? admin : user"></ng-container>
+    </article>
+  </ng-template>
+
+  <ng-container *ngTemplateOutlet="isLogged ? logged : notLogged"></ng-container>
 </section>
