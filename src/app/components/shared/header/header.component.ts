@@ -7,16 +7,16 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @ViewChild('sidenav') sidenav: ElementRef;
+  @ViewChild('sideNav') sideNav: ElementRef;
 
   @HostListener('document:click', ['$event']) DocumentClick(event: MouseEvent) {
     let target = (event.target as Element);
 
     if (target.classList.contains('mat-icon') && this.isNavOpen === false) {
-      this.renderer.setStyle(this.sidenav.nativeElement, 'display', 'flex');
+      this.renderer.setStyle(this.sideNav.nativeElement, 'display', 'flex');
       this.isNavOpen = true;
     } else {
-      this.renderer.setStyle(this.sidenav.nativeElement, 'display', 'none');
+      this.renderer.setStyle(this.sideNav.nativeElement, 'display', 'none');
       this.isNavOpen = false;
     }
   }
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     let pageWidth: number = event.target.innerWidth;
 
     if (pageWidth > 899 && this.isNavOpen === true) {
-      this.renderer.setStyle(this.sidenav.nativeElement, 'display', 'none');
+      this.renderer.setStyle(this.sideNav.nativeElement, 'display', 'none');
       this.isNavOpen = false;
     }
   }
