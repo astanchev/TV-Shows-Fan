@@ -1,1 +1,41 @@
-<p>register works!</p>
+<section class="register-section">
+
+  <h1>Register</h1>
+
+  <form [formGroup]="form">
+
+    <p>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" placeholder="Your username...">
+        <mat-hint>Enter a valid username.</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="Your email...">
+        <mat-hint>Enter a valid email address.</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="Your password...">
+        <mat-hint>Enter a valid password.</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Repeat password</mat-label>
+        <input matInput type="password" placeholder="Repeat your password...">
+        <mat-hint>Repeat your password.</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <button mat-raised-button type="submit" color="primary">Register</button>
+  </form>
+</section>

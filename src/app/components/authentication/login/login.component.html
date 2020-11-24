@@ -1,1 +1,25 @@
-<p>login works!</p>
+<section class="login-section">
+
+    <h1>Log in</h1>
+
+    <form [formGroup]="form">
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" placeholder="Your username...">
+          <mat-hint>Enter a valid username.</mat-hint>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Your password...">
+          <mat-hint>Enter a valid password.</mat-hint>
+        </mat-form-field>
+      </p>
+
+      <button mat-raised-button type="submit" color="primary">Log in</button>
+    </form>
+  </section>

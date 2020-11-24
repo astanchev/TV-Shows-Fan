@@ -1,0 +1,39 @@
+form {
+  padding: 20px;
+}
+
+.register-section {
+  width: 60%;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+::placeholder,
+.mat-hint{
+  color: wheat;
+}
+
+/* default and hover outline color */
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+  color: rgb(250, 221, 248);
+}
+
+form{
+    width: 600px;
+}
+
+.mat-form-field{
+    width: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+   -webkit-transition-delay: 9999s;
+   transition-delay: 9999s;
+}

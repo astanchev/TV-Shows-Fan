@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer3, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private renderer: Renderer2
+    private renderer: Renderer3
     ) { }
 
   ngOnInit(): void {
