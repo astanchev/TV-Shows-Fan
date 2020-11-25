@@ -26,8 +26,8 @@
       <li *ngIf="isLogged"><a mat-button href="#">TV Shows</a></li>
       <li *ngIf="isAdmin"><a mat-button href="#">Users</a></li>
       <li *ngIf="isLogged && !isAdmin"><a mat-button href="#">Profile</a></li>
-      <li *ngIf="!isLogged"><a mat-button href="#" routerLink="/register">Register</a></li>
-      <li *ngIf="!isLogged"><a mat-button href="#" routerLink="/login">Login</a></li>
+      <li *ngIf="!isLogged"><a mat-button routerLink="/register">Register</a></li>
+      <li *ngIf="!isLogged"><a mat-button routerLink="/login">Login</a></li>
       <li *ngIf="isLogged"><a mat-button (click)="logoutHandler()">Logout</a></li>
     </ul>
   </nav>

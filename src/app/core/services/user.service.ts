@@ -36,14 +36,9 @@ export class UserService implements OnDestroy {
   }
 
   get isAdmin() {
-    // return false;
     if (!this.isLogged) {
       return false;
     }
-
-    // if (this.userRoles.length === 0) {
-    //   this.getUserRoles();
-    // }
 
     if (this.userRoles.includes('Administrator')) {
       return true;
@@ -78,7 +73,7 @@ export class UserService implements OnDestroy {
 
         this.getUserRoles();
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       });
   }
 
@@ -113,7 +108,7 @@ export class UserService implements OnDestroy {
         this.storage.setItem('userId', '');
         this.storage.setItem('userToken', '');
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       });
   }
 

@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/authentication/register/register
 import { AboutComponent } from './components/general/about/about.component';
 import { HomeComponent } from './components/general/home/home.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { GuestGuard } from './core/guards/guest.guard';
 
 const routes: Routes = [
   {
@@ -18,15 +19,18 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: '**',
