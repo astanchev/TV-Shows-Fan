@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
@@ -11,14 +13,19 @@ export class UserService implements OnDestroy {
   username: string = '';
   userId: string = '';
   userToken: string = '';
+  userRoles: string[] = [];
 
   loginSub: Subscription;
   registerSub: Subscription;
   logoutSub: Subscription;
+  adminSub: Subscription;
 
   constructor(
     private storage: StorageService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private snackbar: MatSnackBar,
+    private router: Router) {
+
     this.username = this.storage.getItem('username');
     this.userId = this.storage.getItem('userId');
     this.userToken = this.storage.getItem('userToken');
@@ -29,20 +36,18 @@ export class UserService implements OnDestroy {
   }
 
   get isAdmin() {
-
+    // return false;
     if (!this.isLogged) {
       return false;
     }
 
-    let userRoles: string[] = [];
-    const url: string = environment.backendless.endpoints.userRoles;
+    // if (this.userRoles.length === 0) {
+    //   this.getUserRoles();
+    // }
 
-    this.http.get<string[]>(url).subscribe((data) => userRoles.concat(data));
-
-    if (userRoles.includes('Administrator')) {
+    if (this.userRoles.includes('Administrator')) {
       return true;
     }
-
     return false;
   }
 
@@ -50,7 +55,6 @@ export class UserService implements OnDestroy {
     if (this.isLogged && !this.isAdmin) {
       return true;
     }
-
     return false;
   }
 
@@ -71,12 +75,17 @@ export class UserService implements OnDestroy {
         this.storage.setItem('username', data.username);
         this.storage.setItem('userId', data.objectId);
         this.storage.setItem('userToken', data["user-token"]);
+
+        this.getUserRoles();
+
+        this.router.navigate(['/home']);
       });
   }
 
-  register(username: string, password: string): void {
+  register(username: string, email: string, password: string): void {
     const user = {
       username: username,
+      email: email,
       password: password
     };
 
@@ -84,7 +93,7 @@ export class UserService implements OnDestroy {
 
     this.registerSub = this.http
       .post<IUser>(url, JSON.stringify(user))
-      .subscribe(data => {
+      .subscribe( _ => {
         this.login(username, password);
       });
 
@@ -99,15 +108,27 @@ export class UserService implements OnDestroy {
         this.username = '';
         this.userId = '';
         this.userToken = '';
+        this.userRoles = [];
         this.storage.setItem('username', '');
         this.storage.setItem('userId', '');
         this.storage.setItem('userToken', '');
+
+        this.router.navigate(['/home']);
       });
+  }
+
+  getUserRoles(): void {
+    const url: string = environment.backendless.endpoints.userRoles;
+
+    this.adminSub = this.http.get<string[]>(url)
+      .subscribe(
+        (data) => { this.userRoles = this.userRoles.concat(data) });
   }
 
   ngOnDestroy() {
     this.loginSub.unsubscribe();
     this.registerSub.unsubscribe();
     this.logoutSub.unsubscribe();
+    this.adminSub.unsubscribe();
   }
 }

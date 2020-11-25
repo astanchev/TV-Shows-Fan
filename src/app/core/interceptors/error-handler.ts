@@ -14,11 +14,11 @@ import { catchError } from 'rxjs/operators';
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next
                 .handle(req)
-                .pipe(catchError((error) => {
-                        this.snackbar.open(error.error.message, 'Undo', {
+                .pipe(catchError((err) => {
+                        this.snackbar.open(err.error?.message, 'Undo', {
                         duration: 3000
                         });
-                        throw error;
+                        throw err;
                 }));
     }
   }

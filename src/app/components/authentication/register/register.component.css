@@ -12,7 +12,7 @@ form {
 }
 
 ::placeholder,
-.mat-hint{
+.mat-hint {
   color: wheat;
 }
 
@@ -22,18 +22,37 @@ form {
   color: rgb(250, 221, 248);
 }
 
-form{
-    width: 600px;
+form {
+  width: 600px;
 }
 
-.mat-form-field{
-    width: 100%;
+.mat-form-field {
+  width: 100%;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-   -webkit-transition-delay: 9999s;
-   transition-delay: 9999s;
+  -webkit-transition-delay: 9999s;
+  transition-delay: 9999s;
+}
+
+.btn-holder{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn.btn-register {
+  background-color: rgb(114, 48, 175);
+  color: wheat;
+  letter-spacing: 1.2px;
+  box-shadow: inset -5px -5px 10px 0px rgba(65, 40, 58, 0.75);
+  cursor: pointer;
+}
+
+.btn.btn-register:hover {
+  background-color: rgb(214, 186, 240);
+  color: rgb(0, 0, 0);
 }

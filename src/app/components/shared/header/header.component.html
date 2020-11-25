@@ -9,7 +9,7 @@
       <li *ngIf="isLogged && !isAdmin">Profile</li>
       <li *ngIf="!isLogged" routerLink="/register">Register</li>
       <li *ngIf="!isLogged" routerLink="/login">Login</li>
-      <li *ngIf="isLogged">Logout</li>
+      <li *ngIf="isLogged" (click)="logoutHandler()">Logout</li>
     </ul>
   </nav>
 </section>
@@ -28,7 +28,7 @@
       <li *ngIf="isLogged && !isAdmin"><a mat-button href="#">Profile</a></li>
       <li *ngIf="!isLogged"><a mat-button href="#" routerLink="/register">Register</a></li>
       <li *ngIf="!isLogged"><a mat-button href="#" routerLink="/login">Login</a></li>
-      <li *ngIf="isLogged"><a mat-button href="#">Logout</a></li>
+      <li *ngIf="isLogged"><a mat-button (click)="logoutHandler()">Logout</a></li>
     </ul>
   </nav>
 </mat-toolbar>

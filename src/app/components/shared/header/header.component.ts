@@ -48,4 +48,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  logoutHandler(): void {
+    this.userService.logout();
+  }
 }

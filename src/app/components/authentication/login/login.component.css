@@ -37,3 +37,17 @@ form {
      -webkit-transition-delay: 9999s;
      transition-delay: 9999s;
   }
+
+  .btn.btn-login {
+    margin-top: 20px;
+    background-color: rgb(114, 48, 175);
+    color: wheat;
+    letter-spacing: 1.2px;
+    box-shadow: inset -5px -5px 10px 0px rgba(65, 40, 58, 0.75);
+    cursor: pointer;
+  }
+
+  .btn.btn-login:hover {
+    background-color: rgb(214, 186, 240);
+    color: rgb(0, 0, 0);
+  }
