@@ -8,6 +8,7 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
+import { LoadGuard } from './core/guards/load.guard';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'tv-shows',
+    loadChildren: () => import('../app/components/tv-shows/tv-shows.module').then(m => m.TvShowsModule),
+    canLoad: [LoadGuard]
   },
   {
     path: '**',

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
 import { IUserLogin } from '../../core/interfaces/user-login';
@@ -11,6 +11,8 @@ import { StorageService } from './storage.service';
 
 @Injectable()
 export class UserService implements OnDestroy {
+  private user: IUserLogin;
+
   username: string = '';
   userId: string = '';
   userToken: string = '';
@@ -24,7 +26,6 @@ export class UserService implements OnDestroy {
   constructor(
     private storage: StorageService,
     private http: HttpClient,
-    private snackbar: MatSnackBar,
     private router: Router) {
 
     this.username = this.storage.getItem('username');
@@ -61,6 +62,8 @@ export class UserService implements OnDestroy {
     this.loginSub = this.http
       .post<IUserLogin>(url, JSON.stringify(user))
       .subscribe(data => {
+        this.user = data;
+
         this.username = data.username;
         this.userId = data.objectId;
         this.userToken = data["user-token"];
@@ -97,6 +100,8 @@ export class UserService implements OnDestroy {
     this.logoutSub = this.http
       .get(url)
       .subscribe(_ => {
+        this.user = null;
+
         this.username = '';
         this.userId = '';
         this.userToken = '';
@@ -126,7 +131,11 @@ export class UserService implements OnDestroy {
   updateUserData(user: IUpdateUser): Observable<IUserLogin> {
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
 
-    return this.http.put<IUserLogin>(url, JSON.stringify(user));
+    return this.http
+      .put<IUserLogin>(url, JSON.stringify(user))
+      .pipe(
+        tap((data) => this.user = data)
+      );
   }
 
   ngOnDestroy() {

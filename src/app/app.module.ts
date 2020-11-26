@@ -26,12 +26,12 @@ import { UserService } from './core/services/user.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    SharedModule,
-    GeneralModule,
     AuthenticationModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    GeneralModule,
   ],
   providers: [
     UserService,
