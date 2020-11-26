@@ -20,11 +20,12 @@ export class RouteHandlerInterceptor implements HttpInterceptor {
 
         if (request.url.endsWith('login') || request.url.endsWith('register')) {
             request = request.clone({ setHeaders: this.contentHeaders });
-        } else if (request.url.endsWith('logout') || request.url.endsWith('userroles')) {
+        } else if (request.url.endsWith('logout')
+                    || request.url.endsWith('userroles')) {
             let tokenHeaders = { 'user-token': this.userService.userToken };
 
             request = request.clone({ setHeaders: tokenHeaders });
-        } else if (request.url.endsWith('show')) {
+        } else {
             let tokenContentHeaders = {
                 'Content-Type': 'application/json',
                 'user-token': this.userService.userToken

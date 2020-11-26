@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthenticationModule } from './components/authentication/authentication.module';
 import { GeneralModule } from './components/general/general.module';
 import { SharedModule } from './components/shared/shared.module';
+import { ProfileComponent } from './components/user/profile/profile.component';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
 import { RouteHandlerInterceptor } from './core/interceptors/route-handler';
 import { MaterialModule } from './core/material/material.module';
@@ -17,7 +18,8 @@ import { UserService } from './core/services/user.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

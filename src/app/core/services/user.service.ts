@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
 import { IUserLogin } from '../../core/interfaces/user-login';
+import { IUpdateUser } from '../interfaces/update-user';
 import { StorageService } from './storage.service';
 
 @Injectable()
@@ -36,11 +37,7 @@ export class UserService implements OnDestroy {
   }
 
   get isAdmin() {
-    if (!this.isLogged) {
-      return false;
-    }
-
-    if (this.userRoles.includes('Administrator')) {
+    if (this.isLogged && this.userRoles.includes('Administrator')) {
       return true;
     }
     return false;
@@ -88,7 +85,7 @@ export class UserService implements OnDestroy {
 
     this.registerSub = this.http
       .post<IUser>(url, JSON.stringify(user))
-      .subscribe( _ => {
+      .subscribe(_ => {
         this.login(username, password);
       });
 
@@ -118,6 +115,18 @@ export class UserService implements OnDestroy {
     this.adminSub = this.http.get<string[]>(url)
       .subscribe(
         (data) => { this.userRoles = this.userRoles.concat(data) });
+  }
+
+  getUserByID(): Observable<IUserLogin> {
+    const url: string = environment.backendless.endpoints.user + `/${this.userId}`;
+
+    return this.http.get<IUserLogin>(url);
+  }
+
+  updateUserData(user: IUpdateUser): Observable<IUserLogin> {
+    const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    return this.http.put<IUserLogin>(url, JSON.stringify(user));
   }
 
   ngOnDestroy() {

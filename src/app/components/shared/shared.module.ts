@@ -4,6 +4,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { MaterialModule } from 'src/app/core/material/material.module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { LoaderComponent } from './loader/loader.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 
@@ -12,7 +13,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   exports: [
     HeaderComponent,
     FooterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule { }

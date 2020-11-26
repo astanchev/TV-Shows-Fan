@@ -5,6 +5,8 @@ import { RegisterComponent } from './components/authentication/register/register
 import { AboutComponent } from './components/general/about/about.component';
 import { HomeComponent } from './components/general/home/home.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 
 const routes: Routes = [
@@ -31,6 +33,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [GuestGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
