@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   form: FormGroup;
   user: IUserLogin;
   userSub: Subscription;
@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.userSub = this.userService.getUserByID().subscribe((data) => {
+    this.userService.getUserByID().subscribe((data) => {
       this.user = data;
 
       this.form = this.fb.group({
@@ -42,14 +42,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   update() {
     const user: IUpdateUser = this.form.value;
 
-    this.updateSub = this.userService
-                          .updateUserData(user)
+    this.userService.updateUserData(user)
                           .subscribe(_ => this.router.navigate(['/']));
-  }
-
-  ngOnDestroy(): void {
-    this.userSub.unsubscribe();
-    this.updateSub.unsubscribe();
   }
 
 }
