@@ -2,7 +2,8 @@
   <p *ngIf="isAdmin" class="button-holder"><a href="#">Add new TV show</a></p>
 
   <p class="component-holder">
-    <app-tv-shows-search class="search-component" (loading)="showLoading($event)" (tvshows)="getTVShows($event)">
+    <app-tv-shows-search class="search-component" [page]="page" (loading)="showLoading($event)"
+      (tvshows)="getTVShows($event)">
     </app-tv-shows-search>
   </p>
 </section>
@@ -12,11 +13,16 @@
   <ng-template #tvshowsList>
 
     <ng-template #list>
-     <p class="card-holder" *ngFor="let tvshow of tvshows">
+      <p class="card-holder" *ngFor="let tvshow of tvshows| paginate: {
+      itemsPerPage: pageSize,
+      currentPage: page,
+      totalItems: totalTVShows
+    }">
         <a routerLink="tvshow.objectId">
           <app-tv-shows-item [tvshow]="tvshow"></app-tv-shows-item>
         </a>
-     </p>
+      </p>
+      <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
     </ng-template>
 
     <ng-template #noList>
@@ -36,5 +42,7 @@
   </ng-template>
 
   <ng-container *ngTemplateOutlet="loading ? loader : tvshowsList"></ng-container>
+
+
 
 </section>

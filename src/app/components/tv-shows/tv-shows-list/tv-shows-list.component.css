@@ -51,3 +51,8 @@
   margin: 15px;
   flex-basis: 15%;
 }
+
+pagination-controls{
+  flex-basis: 100%;
+  margin-top: 20px;
+}

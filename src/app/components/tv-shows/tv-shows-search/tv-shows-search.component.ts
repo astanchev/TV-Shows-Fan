@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
 @Component({
@@ -6,9 +6,11 @@ import { TvShowService } from 'src/app/core/services/tv-show.service';
   templateUrl: './tv-shows-search.component.html',
   styleUrls: ['./tv-shows-search.component.css']
 })
-export class TvShowsSearchComponent implements OnInit {
+export class TvShowsSearchComponent implements OnInit, OnChanges {
   @Output() tvshows: EventEmitter<ITvShow[]> = new EventEmitter<ITvShow[]>();
   @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() page: number;
+  search: string = '';
 
   constructor(private tvshowService: TvShowService) { }
 
@@ -16,11 +18,16 @@ export class TvShowsSearchComponent implements OnInit {
     this.searchTVShows({search: ''});
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.searchTVShows({search: this.search});
+  }
+
   searchTVShows({ search }): void {
     this.loading.emit(true);
+    this.search = search;
 
     this.tvshowService
-      .getAllTVShows(search)
+      .getAllTVShows(search, this.page)
       .subscribe(data => {
         this.tvshows.emit(data);
         this.loading.emit(false);

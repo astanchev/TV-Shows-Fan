@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { MaterialModule } from 'src/app/core/material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { TvShowsItemComponent } from './tv-shows-item/tv-shows-item.component';
@@ -21,6 +22,7 @@ import { TvShowsSearchComponent } from './tv-shows-search/tv-shows-search.compon
     SharedModule,
     FormsModule,
     MaterialModule,
+    NgxPaginationModule,
     TvShowsRoutingModule
   ]
 })
