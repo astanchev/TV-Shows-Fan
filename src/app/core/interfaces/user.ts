@@ -4,9 +4,10 @@ export interface IUser  extends IBase{
     city: string;
     about: string;
     email: string;
-    country: string;
     lastLogin: Date;
+    country: string;
     username: string;
+    fanGroups: string;
     likedShows: string;
     userStatus: string;
     blUserLocale: string;

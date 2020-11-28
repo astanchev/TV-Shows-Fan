@@ -1,1 +1,40 @@
-<p>tv-shows-list works!</p>
+<section class="search-section">
+  <p *ngIf="isAdmin" class="button-holder"><a href="#">Add new TV show</a></p>
+
+  <p class="component-holder">
+    <app-tv-shows-search class="search-component" (loading)="showLoading($event)" (tvshows)="getTVShows($event)">
+    </app-tv-shows-search>
+  </p>
+</section>
+
+<section class="tvshow-cards-section">
+
+  <ng-template #tvshowsList>
+
+    <ng-template #list>
+     <p class="card-holder" *ngFor="let tvshow of tvshows">
+        <a routerLink="tvshow.objectId">
+          <app-tv-shows-item [tvshow]="tvshow"></app-tv-shows-item>
+        </a>
+     </p>
+    </ng-template>
+
+    <ng-template #noList>
+      <section class="noList">
+        <h1>No TV Shows to display!</h1>
+      </section>
+    </ng-template>
+
+    <ng-container *ngTemplateOutlet="tvshows ? list : noList"></ng-container>
+
+  </ng-template>
+
+  <ng-template #loader>
+    <section class="loader">
+      <app-loader></app-loader>
+    </section>
+  </ng-template>
+
+  <ng-container *ngTemplateOutlet="loading ? loader : tvshowsList"></ng-container>
+
+</section>

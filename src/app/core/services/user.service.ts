@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
@@ -10,27 +10,23 @@ import { IUpdateUser } from '../interfaces/update-user';
 import { StorageService } from './storage.service';
 
 @Injectable()
-export class UserService implements OnDestroy {
+export class UserService {
   private user: IUserLogin;
 
   username: string = '';
   userId: string = '';
   userToken: string = '';
-  userRoles: string[] = [];
-
-  loginSub: Subscription;
-  registerSub: Subscription;
-  logoutSub: Subscription;
-  adminSub: Subscription;
+  isAdministrator: boolean = false;
 
   constructor(
     private storage: StorageService,
     private http: HttpClient,
     private router: Router) {
 
-    this.username = this.storage.getItem('username');
-    this.userId = this.storage.getItem('userId');
-    this.userToken = this.storage.getItem('userToken');
+    this.username = this.storage.getItem('username') || '';
+    this.userId = this.storage.getItem('userId') || '';
+    this.userToken = this.storage.getItem('userToken') || '';
+    this.isAdministrator = this.storage.getItem('isAdministrator') || false;
   }
 
   get isLogged() {
@@ -38,10 +34,7 @@ export class UserService implements OnDestroy {
   }
 
   get isAdmin() {
-    if (this.isLogged && this.userRoles.includes('Administrator')) {
-      return true;
-    }
-    return false;
+    return this.isAdministrator;
   }
 
   get isUser() {
@@ -59,20 +52,19 @@ export class UserService implements OnDestroy {
 
     const url: string = environment.backendless.endpoints.login;
 
-    this.loginSub = this.http
+    this.http
       .post<IUserLogin>(url, JSON.stringify(user))
-      .subscribe(data => {
+      .pipe(tap((data) => {
         this.user = data;
-
         this.username = data.username;
         this.userId = data.objectId;
         this.userToken = data["user-token"];
         this.storage.setItem('username', data.username);
         this.storage.setItem('userId', data.objectId);
         this.storage.setItem('userToken', data["user-token"]);
-
         this.getUserRoles();
-
+      }))
+      .subscribe(_ => {
         this.router.navigate(['/']);
       });
   }
@@ -86,7 +78,7 @@ export class UserService implements OnDestroy {
 
     const url: string = environment.backendless.endpoints.register;
 
-    this.registerSub = this.http
+    this.http
       .post<IUser>(url, JSON.stringify(user))
       .subscribe(_ => {
         this.login(username, password);
@@ -97,7 +89,7 @@ export class UserService implements OnDestroy {
   logout(): void {
     const url: string = environment.backendless.endpoints.logout;
 
-    this.logoutSub = this.http
+    this.http
       .get(url)
       .subscribe(_ => {
         this.user = null;
@@ -105,10 +97,11 @@ export class UserService implements OnDestroy {
         this.username = '';
         this.userId = '';
         this.userToken = '';
-        this.userRoles = [];
+        this.isAdministrator = false;
         this.storage.setItem('username', '');
         this.storage.setItem('userId', '');
         this.storage.setItem('userToken', '');
+        this.storage.setItem('isAdministrator', false);
 
         this.router.navigate(['/login']);
       });
@@ -117,9 +110,17 @@ export class UserService implements OnDestroy {
   getUserRoles(): void {
     const url: string = environment.backendless.endpoints.userRoles;
 
-    this.adminSub = this.http.get<string[]>(url)
+    this.http.get<string[]>(url)
       .subscribe(
-        (data) => { this.userRoles = this.userRoles.concat(data) });
+        (data) => {
+          if (data.indexOf('Administrator') > -1) {
+            this.isAdministrator = true;
+            this.storage.setItem('isAdministrator', true);
+          } else{
+            this.isAdministrator = false;
+            this.storage.setItem('isAdministrator', false);
+          }
+        });
   }
 
   getUserByID(): Observable<IUserLogin> {
@@ -138,10 +139,4 @@ export class UserService implements OnDestroy {
       );
   }
 
-  ngOnDestroy() {
-    this.loginSub.unsubscribe();
-    this.registerSub.unsubscribe();
-    this.logoutSub.unsubscribe();
-    this.adminSub.unsubscribe();
-  }
 }

@@ -24,11 +24,11 @@
       <p>
         You want to see the shows? Check out<a routerLink="/tv-shows">TV Shows</a> section.
       </p>
-      <ng-template #user>
-        <p>You want to make changes in your account? <a routerLink="/profile">Profile</a></p>
-      </ng-template>
       <ng-template #admin>
         <p>You want to make changes in users comment sessions access? <a href="#">Users</a></p>
+      </ng-template>
+      <ng-template #user>
+        <p>You want to make changes in your account? <a routerLink="/profile">Profile</a></p>
       </ng-template>
       <ng-container *ngTemplateOutlet="isAdmin ? admin : user"></ng-container>
     </article>

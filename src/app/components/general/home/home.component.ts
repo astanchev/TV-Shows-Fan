@@ -7,12 +7,15 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  isAdmin: boolean;
-  isLogged: boolean;
+  get isAdmin(): boolean {
+    return  this.userService.isAdmin;
+  }
+
+  get isLogged(): boolean {
+    return  this.userService.isLogged;
+  }
 
   constructor(private userService: UserService) {
-    this.isLogged = this.userService.isLogged;
-    this.isAdmin = this.userService.isAdmin;
   }
 
   ngOnInit(): void {

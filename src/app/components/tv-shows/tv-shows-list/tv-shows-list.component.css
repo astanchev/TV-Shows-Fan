@@ -1,0 +1,53 @@
+.search-section {
+  width: 80%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-component{
+  width: 100%;
+}
+
+.button-holder a {
+  text-decoration: none;
+  padding: 8px 25px;
+  background-color: aquamarine;
+  color: rgb(61, 61, 61);
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: inset -10px -10px 15px -5px rgba(0, 0, 0, 0.75);
+}
+
+.button-holder a:hover{
+    background-color: rgb(245, 185, 112);
+}
+
+.loader{
+    width: 20%;
+    margin: 100px auto;
+}
+
+.component-holder{
+    flex-basis: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tvshow-cards-section{
+  width: 80%;
+  margin: 40px auto;
+  padding-bottom: 50px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.card-holder {
+  margin: 15px;
+  flex-basis: 15%;
+}

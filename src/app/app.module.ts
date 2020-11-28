@@ -13,6 +13,7 @@ import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
 import { RouteHandlerInterceptor } from './core/interceptors/route-handler';
 import { MaterialModule } from './core/material/material.module';
 import { storageServiceProvider } from './core/services/storage.service';
+import { TvShowService } from './core/services/tv-show.service';
 import { UserService } from './core/services/user.service';
 
 
@@ -35,6 +36,7 @@ import { UserService } from './core/services/user.service';
   ],
   providers: [
     UserService,
+    TvShowService,
     storageServiceProvider,
     {
       provide: HTTP_INTERCEPTORS,
