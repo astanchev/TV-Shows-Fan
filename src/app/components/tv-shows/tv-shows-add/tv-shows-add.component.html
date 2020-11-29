@@ -1,0 +1,60 @@
+<section class="add-section">
+
+    <h1>Add new TV Show</h1>
+
+    <form [formGroup]="form" (ngSubmit)="addTVShow()">
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input formControlName="name" matInput type="text" placeholder="TV show's name is...">
+          <mat-hint>Enter a valid tv show's name.</mat-hint>
+          <mat-error *ngIf="form.get('name').hasError('required')">Name is required.</mat-error>
+          <mat-error *ngIf="form.get('name').hasError('minlength')">Name must be at least 3 symbols.</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Category</mat-label>
+          <input formControlName="category" matInput type="text" placeholder="TV show's category is...">
+          <mat-hint>Enter a valid tv show's category.</mat-hint>
+          <mat-error *ngIf="form.get('category').hasError('required')">Category is required.</mat-error>
+          <mat-error *ngIf="form.get('category').hasError('minlength')">Category must be at least 3 symbols.</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Period</mat-label>
+          <input formControlName="period" matInput type="text" placeholder="TV show's period is...">
+          <mat-hint>Enter a valid tv show's period of showing.</mat-hint>
+          <mat-error *ngIf="form.get('period').hasError('required')">TV show's period is required.</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>TV show's image url</mat-label>
+          <input formControlName="imageUrl" matInput type="text" placeholder="TV show's image url is...">
+          <mat-hint>Enter a valid tv show's image url.</mat-hint>
+          <mat-error *ngIf="form.get('imageUrl').hasError('required')">TV show's image url is required.</mat-error>
+          <mat-error *ngIf="form.get('imageUrl').hasError('imageUrl')">TV show's image url has to start with "http://" or "https://".</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea formControlName="description" rows="6" matInput placeholder="TV show's description..."></textarea>
+          <mat-hint>Enter TV show's description.</mat-hint>
+          <mat-error *ngIf="form.get('description').hasError('required')">Category is required.</mat-error>
+          <mat-error *ngIf="form.get('description').hasError('minlength')">Category must be at least 10 symbols.</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p class="btn-holder">
+        <button [disabled]="form.invalid" mat-raised-button type="submit" class="btn btn-add">Add show</button>
+      </p>
+    </form>
+  </section>

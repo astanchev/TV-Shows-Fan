@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITvShow } from '../interfaces/tv-show';
+import { ITvShowAdd } from '../interfaces/tv-show-add';
 
 @Injectable()
 export class TvShowService {
@@ -11,13 +12,21 @@ export class TvShowService {
 
   getAllTVShows(search: string, page: number): Observable<ITvShow[]> {
     let searchAddOn = search ? `&where=${escape(`category LIKE '%${search}%' OR name LIKE '%${search}%'`)}` : '';
-    let pagingQuery = `?pageSize=5&offset=${(page-1)*5}`;
-    const url: string = environment.backendless.endpoints.tvshow + pagingQuery + searchAddOn ;
+    let pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
+    const url: string = environment.backendless.endpoints.tvshow + pagingQuery + searchAddOn;
 
     return this.http.get<ITvShow[]>(url);
   }
 
-  getTVShowsCount(): Observable<number>{
+  getTVShowsCount(): Observable<number> {
     return this.http.get<number>(environment.backendless.endpoints.countTVShows);
+  }
+
+  createTVShow(tvshow: ITvShowAdd): Observable<ITvShow> {
+    return this.http
+      .post<ITvShow>(
+        environment.backendless.endpoints.tvshow,
+        JSON.stringify(tvshow)
+      );
   }
 }

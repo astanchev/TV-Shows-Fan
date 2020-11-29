@@ -1,5 +1,5 @@
 <section class="search-section">
-  <p *ngIf="isAdmin" class="button-holder"><a href="#">Add new TV show</a></p>
+  <p *ngIf="isAdmin" class="button-holder"><a routerLink="add">Add new TV show</a></p>
 
   <p class="component-holder">
     <app-tv-shows-search class="search-component" [page]="page" (loading)="showLoading($event)"
@@ -42,7 +42,5 @@
   </ng-template>
 
   <ng-container *ngTemplateOutlet="loading ? loader : tvshowsList"></ng-container>
-
-
 
 </section>
