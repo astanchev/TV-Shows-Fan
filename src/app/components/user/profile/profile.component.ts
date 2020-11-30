@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { IUpdateUser } from 'src/app/core/interfaces/update-user';
 import { IUserLogin } from 'src/app/core/interfaces/user-login';
 import { UserService } from 'src/app/core/services/user.service';
@@ -14,8 +13,6 @@ import { UserService } from 'src/app/core/services/user.service';
 export class ProfileComponent implements OnInit {
   form: FormGroup;
   user: IUserLogin;
-  userSub: Subscription;
-  updateSub: Subscription;
   loading: boolean = true;
 
   constructor(

@@ -10,6 +10,7 @@ import { TvShowsListComponent } from './tv-shows-list/tv-shows-list.component';
 import { TvShowsRoutingModule } from './tv-shows-routing.module';
 import { TvShowsSearchComponent } from './tv-shows-search/tv-shows-search.component';
 import { TvShowsDetailComponent } from './tv-shows-detail/tv-shows-detail.component';
+import { TvShowsEditComponent } from './tv-shows-edit/tv-shows-edit.component';
 
 
 
@@ -19,7 +20,8 @@ import { TvShowsDetailComponent } from './tv-shows-detail/tv-shows-detail.compon
     TvShowsItemComponent,
     TvShowsSearchComponent,
     TvShowsAddComponent,
-    TvShowsDetailComponent
+    TvShowsDetailComponent,
+    TvShowsEditComponent
   ],
   imports: [
     CommonModule,
