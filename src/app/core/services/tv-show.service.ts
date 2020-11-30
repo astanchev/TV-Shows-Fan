@@ -22,6 +22,12 @@ export class TvShowService {
     return this.http.get<number>(environment.backendless.endpoints.countTVShows);
   }
 
+  getTVShowByID(id: string): Observable<ITvShow> {
+    const url: string = environment.backendless.endpoints.tvshow + `/${id}`;
+
+    return this.http.get<ITvShow>(url);
+  }
+
   createTVShow(tvshow: ITvShowAdd): Observable<ITvShow> {
     return this.http
       .post<ITvShow>(
@@ -29,4 +35,12 @@ export class TvShowService {
         JSON.stringify(tvshow)
       );
   }
+
+  updateTVShow(data: any, tvshowId: string): Observable<ITvShow> {
+    const url: string = environment.backendless.endpoints.tvshow + `/${tvshowId}`;
+
+    return this.http
+      .put<ITvShow>(url, JSON.stringify(data));
+  }
+
 }

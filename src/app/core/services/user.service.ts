@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { flatMap, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
 import { IUserLogin } from '../../core/interfaces/user-login';
+import { ITvShow } from '../interfaces/tv-show';
 import { IUpdateUser } from '../interfaces/update-user';
 import { StorageService } from './storage.service';
+import { TvShowService } from './tv-show.service';
 
 @Injectable()
 export class UserService {
-  private user: IUserLogin;
-
   username: string = '';
   userId: string = '';
   userToken: string = '';
@@ -20,6 +20,7 @@ export class UserService {
 
   constructor(
     private storage: StorageService,
+    private tvshowService: TvShowService,
     private http: HttpClient,
     private router: Router) {
 
@@ -29,15 +30,15 @@ export class UserService {
     this.isAdministrator = this.storage.getItem('isAdministrator') || false;
   }
 
-  get isLogged() {
+  get isLogged(): boolean {
     return !!this.userToken;
   }
 
-  get isAdmin() {
+  get isAdmin(): boolean {
     return this.isAdministrator;
   }
 
-  get isUser() {
+  get isUser(): boolean {
     if (this.isLogged && !this.isAdmin) {
       return true;
     }
@@ -55,7 +56,6 @@ export class UserService {
     this.http
       .post<IUserLogin>(url, JSON.stringify(user))
       .pipe(tap((data) => {
-        this.user = data;
         this.username = data.username;
         this.userId = data.objectId;
         this.userToken = data["user-token"];
@@ -92,8 +92,6 @@ export class UserService {
     this.http
       .get(url)
       .subscribe(_ => {
-        this.user = null;
-
         this.username = '';
         this.userId = '';
         this.userToken = '';
@@ -116,7 +114,7 @@ export class UserService {
           if (data.indexOf('Administrator') > -1) {
             this.isAdministrator = true;
             this.storage.setItem('isAdministrator', true);
-          } else{
+          } else {
             this.isAdministrator = false;
             this.storage.setItem('isAdministrator', false);
           }
@@ -133,10 +131,110 @@ export class UserService {
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
 
     return this.http
-      .put<IUserLogin>(url, JSON.stringify(user))
+      .put<IUserLogin>(url, JSON.stringify(user));
+  }
+
+
+  joinFanGroup(tvshowName: string): Observable<IUserLogin> {
+    const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    return this.getUserByID().pipe(
+      switchMap(
+        (user: IUserLogin) => {
+          let fanGroups: string[] = !!user.fanGroups ?
+            user.fanGroups
+              .split(', ')
+              .filter(x => x !== '') :
+            [];
+          fanGroups.push(tvshowName);
+          return this.http.put<IUserLogin>(url, JSON.stringify({ fanGroups: fanGroups.join(', ') }));
+        }
+      )
+    );
+  }
+
+  leaveFanGroup(tvshowName: string): Observable<IUserLogin> {
+    const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    return this.getUserByID().pipe(
+      switchMap(
+        (user: IUserLogin) => {
+          let fanGroups: string[] = !!user.fanGroups ?
+            user.fanGroups
+              .split(', ')
+              .filter(x => x !== '') :
+            [];
+          fanGroups = fanGroups.filter(t => t !== tvshowName);
+          return this.http.put<IUserLogin>(url, JSON.stringify({ fanGroups: fanGroups.join(', ') }));
+        }
+      )
+    );
+  }
+
+  likeTVShow(tvshowName: string, tvshowID: string): Observable<IUserLogin> {
+    const urlUser: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    let tvshowSub$ = this.tvshowService.getTVShowByID(tvshowID)
       .pipe(
-        tap((data) => this.user = data)
+        switchMap(
+          (tvShow: ITvShow) => {
+            let likes: number = tvShow.likes;
+            let data = { likes: likes + 1 };
+
+            return this.tvshowService.updateTVShow(data, tvshowID);
+          }
+        )
       );
+
+    let userSub$ = this.getUserByID().pipe(
+      switchMap(
+        (user: IUserLogin) => {
+          let likedShows: string[] = !!user.likedShows ?
+            user.likedShows
+              .split(', ')
+              .filter(x => x !== '') :
+            [];
+
+          likedShows.push(tvshowName);
+          return this.http.put<IUserLogin>(urlUser, JSON.stringify({ likedShows: likedShows.join(', ') }));
+        }
+      )
+    );
+
+    return tvshowSub$.pipe(flatMap(() => userSub$));
+  }
+
+  dislikeTVShow(tvshowName: string, tvshowID: string): Observable<IUserLogin> {
+    const urlUser: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    let tvshowSub$ = this.tvshowService.getTVShowByID(tvshowID)
+      .pipe(
+        switchMap(
+          (tvShow: ITvShow) => {
+            let dislikes: number = tvShow.dislikes;
+            let data = { dislikes: dislikes + 1 };
+
+            return this.tvshowService.updateTVShow(data, tvshowID);
+          }
+        )
+      );
+
+    let userSub$ = this.getUserByID().pipe(
+      switchMap(
+        (user: IUserLogin) => {
+          let likedShows: string[] = !!user.likedShows ?
+            user.likedShows
+              .split(', ')
+              .filter(x => x !== '') :
+            [];
+
+          likedShows.push(tvshowName);
+          return this.http.put<IUserLogin>(urlUser, JSON.stringify({ likedShows: likedShows.join(', ') }));
+        }
+      )
+    );
+
+    return tvshowSub$.pipe(flatMap(() => userSub$));
   }
 
 }

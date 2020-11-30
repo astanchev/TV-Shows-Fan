@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @HostListener('document:click', ['$event']) DocumentClick(event: MouseEvent) {
     let target = (event.target as Element);
 
-    if (target.classList.contains('mat-icon') && this.isNavOpen === false) {
+    if (target.classList.contains('hamburger') && this.isNavOpen === false) {
       this.renderer.setStyle(this.sideNav.nativeElement, 'display', 'flex');
       this.isNavOpen = true;
     } else {

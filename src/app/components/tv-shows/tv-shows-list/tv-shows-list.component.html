@@ -18,7 +18,7 @@
       currentPage: page,
       totalItems: totalTVShows
     }">
-        <a routerLink="tvshow.objectId">
+        <a [routerLink]="['detail', tvshow.objectId]">
           <app-tv-shows-item [tvshow]="tvshow"></app-tv-shows-item>
         </a>
       </p>
