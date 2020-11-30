@@ -43,4 +43,10 @@ export class TvShowService {
       .put<ITvShow>(url, JSON.stringify(data));
   }
 
+  deleteTVShow(tvshowId: string): Observable<void> {
+    const url: string = environment.backendless.endpoints.tvshow + `/${tvshowId}`;
+
+    return this.http.delete<void>(url);
+  }
+
 }

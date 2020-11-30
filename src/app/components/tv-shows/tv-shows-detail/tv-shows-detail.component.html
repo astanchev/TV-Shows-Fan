@@ -33,7 +33,7 @@
             <button *ngIf="!isAdmin && !isFan" mat-raised-button color="primary" (click)="joinFanGroup()">Join fan group</button>
             <button *ngIf="!isAdmin && isFan" mat-raised-button color="accent" (click)="leaveFanGroup()">Leave fan group</button>
             <button *ngIf="isAdmin" mat-raised-button color="accent">Edit</button>
-            <button *ngIf="isAdmin" mat-raised-button color="warn">Delete</button>
+            <button *ngIf="isAdmin" mat-raised-button color="warn" (click)="deleteTVShow()">Delete</button>
           </section>
         </mat-card-actions>
 

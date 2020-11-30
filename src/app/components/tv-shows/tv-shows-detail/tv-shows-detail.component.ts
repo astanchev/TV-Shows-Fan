@@ -74,4 +74,9 @@ export class TvShowsDetailComponent implements OnInit {
     this.userService.dislikeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.ngOnInit());
   }
 
+  deleteTVShow() {
+    this.tvshowService.deleteTVShow(this.tvshowID).subscribe();
+    this.router.navigate(['tv-shows']);
+  }
+
 }
