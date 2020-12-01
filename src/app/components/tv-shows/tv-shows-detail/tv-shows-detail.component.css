@@ -18,6 +18,10 @@
     display: block;
 }
 
+.image-holder:hover{
+    transform: scale(1.2);
+}
+
 .details-holder{
     flex-basis: 65%;
 }
@@ -43,12 +47,16 @@
     border-top: 1px solid grey;
 }
 
+.comments{
+    width: 80%;
+    margin: 20px auto;
+}
+
 @media screen and (max-width: 900px){
     .tvshow-details{
         width: 90%;
     }
 }
-
 
 @media screen and (max-width: 500px){
     .tvshow-details{

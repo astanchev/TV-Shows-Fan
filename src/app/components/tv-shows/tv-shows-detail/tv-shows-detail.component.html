@@ -1,51 +1,65 @@
-<ng-template #card>
-  <section class="tvshow-details">
-    <article class="image-holder">
-      <img [src]="tvshow.imageUrl" alt="TV Show poster">
-    </article>
+<section class="tvshow">
 
-    <article class="details-holder">
-      <mat-card>
-        <section class="card-text">
-          <mat-card-title-group>
-            <mat-card-title>
-              {{tvshow.name}} {{tvshow.period}}
-            </mat-card-title>
-            <mat-card-subtitle>
-              {{tvshow.category}}
-            </mat-card-subtitle>
-          </mat-card-title-group>
-          <mat-card-content>
-            {{tvshow.description}}
-          </mat-card-content>
-        </section>
+  <ng-template #card>
+    <section class="tvshow-details">
+      <article class="image-holder">
+        <img [src]="tvshow.imageUrl" alt="TV Show poster">
+      </article>
 
-        <mat-card-actions>
-          <section *ngIf="!isAdmin" class="vote-buttons">
-            <button mat-icon-button [matBadge]="tvshow.likes" matBadgePosition="after" matBadgeColor="primary" (click)="upVote()" [disabled]="isVotedForShow">
-              <mat-icon>thumb_up_alt</mat-icon>
-            </button>
-            <button mat-icon-button [matBadge]="tvshow.dislikes" matBadgePosition="after" matBadgeColor="warn" (click)="downVote()" [disabled]="isVotedForShow">
-              <mat-icon>thumb_down_alt</mat-icon>
-            </button>
+      <article class="details-holder">
+        <mat-card>
+          <section class="card-text">
+            <mat-card-title-group>
+              <mat-card-title>
+                {{tvshow.name}} {{tvshow.period}}
+              </mat-card-title>
+              <mat-card-subtitle>
+                {{tvshow.category}}
+              </mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-content>
+              {{tvshow.description}}
+            </mat-card-content>
           </section>
-          <section class="card-buttons">
-            <button *ngIf="!isAdmin && !isFan" mat-raised-button color="primary" (click)="joinFanGroup()">Join fan group</button>
-            <button *ngIf="!isAdmin && isFan" mat-raised-button color="accent" (click)="leaveFanGroup()">Leave fan group</button>
-            <button *ngIf="isAdmin" mat-raised-button color="accent" [routerLink]="['/tv-shows', 'edit', tvshow.objectId]">Edit</button>
-            <button *ngIf="isAdmin" mat-raised-button color="warn" (click)="deleteTVShow()">Delete</button>
-          </section>
-        </mat-card-actions>
 
-      </mat-card>
-    </article>
-  </section>
-</ng-template>
+          <mat-card-actions>
+            <section *ngIf="!isAdmin" class="vote-buttons">
+              <button mat-icon-button [matBadge]="tvshow.likes" matBadgePosition="after" matBadgeColor="primary"
+                (click)="upVote()" [disabled]="isVotedForShow">
+                <mat-icon>thumb_up_alt</mat-icon>
+              </button>
+              <button mat-icon-button [matBadge]="tvshow.dislikes" matBadgePosition="after" matBadgeColor="warn"
+                (click)="downVote()" [disabled]="isVotedForShow">
+                <mat-icon>thumb_down_alt</mat-icon>
+              </button>
+            </section>
+            <section class="card-buttons">
+              <button *ngIf="!isAdmin && !isFan" mat-raised-button color="primary" (click)="joinFanGroup()">Join fan
+                group</button>
+              <button *ngIf="!isAdmin && isFan" mat-raised-button color="accent" (click)="leaveFanGroup()">Leave fan
+                group</button>
+              <button *ngIf="isAdmin" mat-raised-button color="accent"
+                [routerLink]="['/tv-shows', 'edit', tvshow.objectId]">Edit</button>
+              <button *ngIf="isAdmin" mat-raised-button color="warn" (click)="deleteTVShow()">Delete</button>
+            </section>
+          </mat-card-actions>
 
-<ng-template #loader>
-  <section class="loader">
-    <app-loader></app-loader>
-  </section>
-</ng-template>
+        </mat-card>
+      </article>
+    </section>
 
-<ng-container *ngTemplateOutlet="(tvshow && user) ? card : loader"></ng-container>
+    <section class="comments">
+      <app-comments-list [isAdmin]="isAdmin" [isFan]="isFan" [tvshow]="tvshow" (loading)="showLoader()"></app-comments-list>
+    </section>
+  </ng-template>
+
+  <ng-template #loader>
+    <section class="loader">
+      <app-loader></app-loader>
+    </section>
+  </ng-template>
+
+  <ng-container *ngTemplateOutlet="(tvshow && user && loadingComments) ? card : loader"></ng-container>
+
+</section>
+

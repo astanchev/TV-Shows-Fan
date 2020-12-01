@@ -1,0 +1,10 @@
+.btn.btn-comment{
+    display: block;
+    margin: 0 auto;
+    background-color: aquamarine;
+}
+
+.btn.btn-comment:not(:disabled):hover{
+    background-color: rgb(20, 160, 113);
+    color: white;
+}

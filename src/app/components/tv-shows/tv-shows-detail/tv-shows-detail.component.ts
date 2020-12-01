@@ -19,6 +19,7 @@ export class TvShowsDetailComponent implements OnInit {
   user: IUserLogin;
   isFan: boolean = false;
   isVotedForShow: boolean = false;
+  loadingComments: boolean = true;
 
   userSub$: Observable<IUserLogin>;
   tvshowSub$: Observable<ITvShow>;
@@ -79,4 +80,7 @@ export class TvShowsDetailComponent implements OnInit {
     this.router.navigate(['tv-shows']);
   }
 
+  showLoader(loading: boolean) {
+    this.loadingComments = loading;
+  }
 }

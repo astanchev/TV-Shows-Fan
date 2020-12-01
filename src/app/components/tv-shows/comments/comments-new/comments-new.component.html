@@ -1,0 +1,13 @@
+<section mat-dialog-content>
+  <h1>Type your comment</h1>
+  <mat-form-field class="comment-area-holder" appearance="outline">
+    <mat-label>Your comment</mat-label>
+    <textarea class="comment-area" rows="6" matInput #comment placeholder="Your comment..."></textarea>
+    <mat-hint>Comment should be more than 5 symbols.</mat-hint>
+  </mat-form-field>
+</section>
+<section mat-dialog-actions>
+  <button class="btn btn-cancel" color="accent" mat-raised-button (click)="onCancel()">Cancel</button>
+  <button class="btn btn-comment" color="primary" mat-raised-button [disabled]="comment.value.length < 5"
+    [mat-dialog-close]="comment.value">Comment</button>
+</section>
