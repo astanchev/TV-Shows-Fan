@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IComment } from 'src/app/core/interfaces/comment';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-comments-item',
@@ -9,7 +10,13 @@ import { IComment } from 'src/app/core/interfaces/comment';
 export class CommentsItemComponent implements OnInit {
   @Input() comment: IComment;
 
-  constructor() { }
+get isOwner(){
+  return this.comment.ownerId === this.userService.userId;
+}
+
+  constructor(
+    private userService: UserService,
+  ) { }
 
   ngOnInit(): void {
   }

@@ -1,7 +1,7 @@
 <button *ngIf="!isAdmin" class="btn btn-comment" (click)="openDialog()" mat-raised-button
   [disabled]="!isFan">Comment</button>
 
-<section class="comments">
+<section class="comments-list">
   <ng-template #commentsList>
     <p class="card-holder" *ngFor="let comment of comments | paginate: {
     itemsPerPage: pageSize,

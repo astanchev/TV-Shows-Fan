@@ -74,7 +74,7 @@ export class TvShowService {
   }
 
   getTVShowComments(tvshowId: string, page: number): Observable<IComment[]>{
-    const pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
+    const pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}&sortBy=created desc`;
     const url = environment.backendless.endpoints.tvshow + `/${tvshowId}/comments` + pagingQuery;
 
     return this.http.get<IComment[]>(url);

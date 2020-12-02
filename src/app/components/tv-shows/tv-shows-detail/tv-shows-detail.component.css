@@ -50,6 +50,7 @@
 .comments{
     width: 80%;
     margin: 20px auto;
+    padding-bottom: 50px;
 }
 
 @media screen and (max-width: 900px){

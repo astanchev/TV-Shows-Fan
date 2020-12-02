@@ -1,1 +1,22 @@
-<p>comments-item works!</p>
+<mat-card class="comment-card">
+  <mat-card-title class="card-title">
+    <span>{{comment.fromUser}}</span>
+    <span>{{comment.created | date : "MM/dd/yyyy"}}</span>
+  </mat-card-title>
+  <mat-card-content class="card-content">
+    {{comment.text}}
+  </mat-card-content>
+  <mat-card-actions class="card-buttons">
+    <section class="vote-buttons">
+      <button mat-icon-button [matBadge]="0" matBadgePosition="after" matBadgeColor="primary">
+        <mat-icon>thumb_up_alt</mat-icon>
+      </button>
+      <button mat-icon-button [matBadge]="0" matBadgePosition="after" matBadgeColor="warn">
+        <mat-icon>thumb_down_alt</mat-icon>
+      </button>
+    </section>
+    <section class="delete-button">
+      <button *ngIf="isOwner" mat-raised-button class="btn btn-delete">Delete comment</button>
+    </section>
+  </mat-card-actions>
+</mat-card>
