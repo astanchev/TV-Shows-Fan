@@ -8,3 +8,13 @@
     background-color: rgb(20, 160, 113);
     color: white;
 }
+
+.loader-holder{
+    width: 20%;
+    margin: 100px auto;
+}
+
+.comments{
+    width: 80%;
+    margin: 50px auto;
+}

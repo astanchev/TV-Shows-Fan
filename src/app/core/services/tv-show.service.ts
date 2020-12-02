@@ -17,8 +17,8 @@ export class TvShowService {
     ) { }
 
   getAllTVShows(search: string, page: number): Observable<ITvShow[]> {
-    let searchAddOn = search ? `&where=${escape(`category LIKE '%${search}%' OR name LIKE '%${search}%'`)}` : '';
-    let pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
+    const searchAddOn = search ? `&where=${escape(`category LIKE '%${search}%' OR name LIKE '%${search}%'`)}` : '';
+    const pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
     const url: string = environment.backendless.endpoints.tvshow + pagingQuery + searchAddOn;
 
     return this.http.get<ITvShow[]>(url);
@@ -64,6 +64,20 @@ export class TvShowService {
         return this.http.put<number>(url, JSON.stringify([data.objectId]));
       })
     );
+  }
+
+  getTVShowCommentsCount(tvshowId: string): Observable<number> {
+    const searchAddOn = `?where=${escape(`tvshow[comments].objectId = '${tvshowId}'`)}`;
+    const url = environment.backendless.endpoints.countComments + searchAddOn;
+
+    return this.http.get<number>(url);
+  }
+
+  getTVShowComments(tvshowId: string, page: number): Observable<IComment[]>{
+    const pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
+    const url = environment.backendless.endpoints.tvshow + `/${tvshowId}/comments` + pagingQuery;
+
+    return this.http.get<IComment[]>(url);
   }
 
 }

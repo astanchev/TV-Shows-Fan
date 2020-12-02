@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { flatMap, tap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { IUserLogin } from 'src/app/core/interfaces/user-login';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
@@ -13,18 +13,18 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./tv-shows-detail.component.css']
 })
 export class TvShowsDetailComponent implements OnInit {
-  tvshowID: string = '';
-  tvshowName: string = '';
+  tvshowID = '';
+  tvshowName = '';
+  loadingComments: boolean;
   tvshow: ITvShow;
   user: IUserLogin;
-  isFan: boolean = false;
-  isVotedForShow: boolean = false;
-  loadingComments: boolean = true;
+  isFan = false;
+  isVotedForShow = false;
 
   userSub$: Observable<IUserLogin>;
   tvshowSub$: Observable<ITvShow>;
 
-  get isAdmin() {
+  get isAdmin(): boolean {
     return this.userService.isAdmin;
   }
 
@@ -39,7 +39,7 @@ export class TvShowsDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.tvshowID = params['id'];
+      this.tvshowID = params.id;
     });
 
     this.userSub$ = this.userService.getUserByID().pipe(tap((data) => { this.user = data; }));
@@ -56,31 +56,33 @@ export class TvShowsDetailComponent implements OnInit {
         tap((data) => { this.tvshow = data; })
       );
 
-    this.userSub$.pipe(flatMap(() => this.tvshowSub$)).subscribe();
+    this.userSub$.pipe(mergeMap(() => this.tvshowSub$)).subscribe();
   }
 
-  joinFanGroup() {
+  joinFanGroup(): void {
     this.userService.joinFanGroup(this.tvshowName).subscribe(() => this.ngOnInit());
   }
 
-  leaveFanGroup() {
+  leaveFanGroup(): void {
     this.userService.leaveFanGroup(this.tvshowName).subscribe(() => this.ngOnInit());
   }
 
-  upVote() {
+  upVote(): void {
     this.userService.likeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.ngOnInit());
   }
 
-  downVote() {
+  downVote(): void {
     this.userService.dislikeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.ngOnInit());
   }
 
-  deleteTVShow() {
+  deleteTVShow(): void {
     this.tvshowService.deleteTVShow(this.tvshowID).subscribe();
     this.router.navigate(['tv-shows']);
   }
 
-  showLoader(loading: boolean) {
-    this.loadingComments = loading;
+
+  showLoader(loadComments: boolean) {
+    this.loadingComments = loadComments;
   }
+
 }

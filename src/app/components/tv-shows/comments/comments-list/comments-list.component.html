@@ -1,1 +1,24 @@
-<button *ngIf="!isAdmin" class="btn btn-comment" (click)="openDialog()" mat-raised-button [disabled]="!isFan">Comment</button>
+<button *ngIf="!isAdmin" class="btn btn-comment" (click)="openDialog()" mat-raised-button
+  [disabled]="!isFan">Comment</button>
+
+<section class="comments">
+  <ng-template #commentsList>
+    <p class="card-holder" *ngFor="let comment of comments | paginate: {
+    itemsPerPage: pageSize,
+    currentPage: page,
+    totalItems: commentsCount$ | async
+  }">
+      <app-comments-item [comment]="comment"></app-comments-item>
+    </p>
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+  </ng-template>
+
+  <ng-template #loader>
+    <p class="loader-holder">
+      <mat-spinner></mat-spinner>
+    </p>
+  </ng-template>
+
+  <ng-container *ngTemplateOutlet="(tvshow && !loading) ? commentsList : loader"></ng-container>
+
+</section>

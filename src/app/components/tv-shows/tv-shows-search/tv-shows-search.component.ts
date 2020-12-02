@@ -10,7 +10,7 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
   @Output() tvshows: EventEmitter<ITvShow[]> = new EventEmitter<ITvShow[]>();
   @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() page: number;
-  search: string = '';
+  search = '';
 
   constructor(private tvshowService: TvShowService) { }
 

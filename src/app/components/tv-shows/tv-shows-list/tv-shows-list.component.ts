@@ -9,13 +9,13 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./tv-shows-list.component.css']
 })
 export class TvShowsListComponent implements OnInit {
-  loading: boolean = true;
+  loading = true;
   tvshows: ITvShow[];
   totalTVShows: number;
-  pageSize: number = 5;
-  page: number = 1;
+  pageSize = 5;
+  page = 1;
 
-  get isAdmin() {
+  get isAdmin(): boolean {
     return this.userService.isAdmin;
   }
 
@@ -27,16 +27,16 @@ export class TvShowsListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTVShows(tvshows: ITvShow[]) {
+  getTVShows(tvshows: ITvShow[]): void {
     this.tvshows = tvshows;
     this.tvshowService.getTVShowsCount().subscribe((data) => this.totalTVShows = data);
   }
 
-  showLoading(loading: boolean) {
+  showLoading(loading: boolean): void {
     this.loading = loading;
   }
 
-  getPage(event) {
+  getPage(event): void {
     this.page = event;
   }
 }

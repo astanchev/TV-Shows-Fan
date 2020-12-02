@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { flatMap, switchMap, tap } from 'rxjs/operators';
+import { mergeMap, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
 import { IUserLogin } from '../../core/interfaces/user-login';
@@ -174,22 +174,22 @@ export class UserService {
   likeTVShow(tvshowName: string, tvshowID: string): Observable<IUserLogin> {
     const urlUser: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
 
-    let tvshowSub$ = this.tvshowService.getTVShowByID(tvshowID)
+    const tvshowSub$ = this.tvshowService.getTVShowByID(tvshowID)
       .pipe(
         switchMap(
           (tvShow: ITvShow) => {
-            let likes: number = tvShow.likes;
-            let data = { likes: likes + 1 };
+            const likes: number = tvShow.likes;
+            const data = { likes: likes + 1 };
 
             return this.tvshowService.updateTVShow(data, tvshowID);
           }
         )
       );
 
-    let userSub$ = this.getUserByID().pipe(
+    const userSub$ = this.getUserByID().pipe(
       switchMap(
         (user: IUserLogin) => {
-          let likedShows: string[] = !!user.likedShows ?
+          const likedShows: string[] = !!user.likedShows ?
             user.likedShows
               .split(', ')
               .filter(x => x !== '') :
@@ -201,28 +201,28 @@ export class UserService {
       )
     );
 
-    return tvshowSub$.pipe(flatMap(() => userSub$));
+    return tvshowSub$.pipe(mergeMap(() => userSub$));
   }
 
   dislikeTVShow(tvshowName: string, tvshowID: string): Observable<IUserLogin> {
     const urlUser: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
 
-    let tvshowSub$ = this.tvshowService.getTVShowByID(tvshowID)
+    const tvshowSub$ = this.tvshowService.getTVShowByID(tvshowID)
       .pipe(
         switchMap(
           (tvShow: ITvShow) => {
-            let dislikes: number = tvShow.dislikes;
-            let data = { dislikes: dislikes + 1 };
+            const dislikes: number = tvShow.dislikes;
+            const data = { dislikes: dislikes + 1 };
 
             return this.tvshowService.updateTVShow(data, tvshowID);
           }
         )
       );
 
-    let userSub$ = this.getUserByID().pipe(
+    const userSub$ = this.getUserByID().pipe(
       switchMap(
         (user: IUserLogin) => {
-          let likedShows: string[] = !!user.likedShows ?
+          const likedShows: string[] = !!user.likedShows ?
             user.likedShows
               .split(', ')
               .filter(x => x !== '') :
@@ -234,7 +234,7 @@ export class UserService {
       )
     );
 
-    return tvshowSub$.pipe(flatMap(() => userSub$));
+    return tvshowSub$.pipe(mergeMap(() => userSub$));
   }
 
 }
