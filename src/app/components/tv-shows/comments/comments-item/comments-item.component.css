@@ -26,11 +26,6 @@
     color: white;
 }
 
-.btn.btn-delete:disabled{
-    background-color: rgb(175, 175, 175);
-    color: black;
-}
-
 .btn.btn-delete:hover{
     background-color: rgb(197, 67, 67);
     color: white;

@@ -58,14 +58,24 @@ export class CommentsListComponent implements OnInit {
 
   getPage(event): void {
     this.page = event;
+    this.updateComments();
+  }
+
+  updateComments(): void {
     this.loading = true;
     this.tvshowService
-    .getTVShowComments(this.tvshow.objectId, this.page)
+      .getTVShowComments(this.tvshow.objectId, this.page)
       .subscribe((data) => {
         this.comments = data;
         this.loading = false;
         this.ngOnInit();
       });
+  }
+
+  deleteComment(deleted: boolean): void{
+    if (deleted) {
+      this.updateComments();
+    }
   }
 
 }
