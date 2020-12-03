@@ -131,6 +131,22 @@ export class UserService {
     return this.http.get<IUserLogin>(url);
   }
 
+  getAllUsers(page: number): Observable<IUserLogin>{
+    const searchAddOn = `&where=${escape(`username != 'Administrator'`)}`;
+    const pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
+    const url = environment.backendless.endpoints.user + pagingQuery + searchAddOn;
+
+    return this.http.get<IUserLogin>(url);
+  }
+
+  getAllUsersCount(): Observable<number>{
+    const searchAddOn = `?where=${escape(`username != 'Administrator'`)}`;
+    const countQuery = `&property=Count(username)`;
+    const url = environment.backendless.endpoints.user + searchAddOn + countQuery;
+
+    return this.http.get<number>(url);
+  }
+
   getUserLikedComments(): Observable<IReturnedComment> {
     const propAddon = '?property=likedComments';
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}` + propAddon;
@@ -144,7 +160,6 @@ export class UserService {
     return this.http
       .put<IUserLogin>(url, JSON.stringify(user));
   }
-
 
   joinFanGroup(tvshowName: string): Observable<IUserLogin> {
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
