@@ -9,6 +9,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  box-shadow: inset 0px -6px 9px -2px #000000;
 }
 
 .navigation-buttons {
