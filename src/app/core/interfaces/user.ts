@@ -1,6 +1,6 @@
 import { IBase } from './base';
 
-export interface IUser  extends IBase{
+export interface IUser extends IBase {
     city: string;
     about: string;
     email: string;
@@ -13,4 +13,5 @@ export interface IUser  extends IBase{
     blUserLocale: string;
     likedComments: string;
     socialAccount: string;
+    allowCommenting: boolean;
 }

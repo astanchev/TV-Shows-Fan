@@ -9,6 +9,10 @@
     color: white;
 }
 
+.text-ban{
+    text-align: center;
+}
+
 .loader-holder{
     width: 20%;
     margin: 100px auto;

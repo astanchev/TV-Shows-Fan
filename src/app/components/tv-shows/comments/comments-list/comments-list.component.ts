@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IComment } from 'src/app/core/interfaces/comment';
 import { IReturnedComment } from 'src/app/core/interfaces/returned-comment';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
@@ -18,6 +19,7 @@ export class CommentsListComponent implements OnInit {
   @Input() tvshowID: string;
   @Output() loadComments: EventEmitter<boolean> = new EventEmitter<boolean>();
   likedComments$: Observable<IReturnedComment>;
+  userCommentStatus$: Observable<boolean>;
   loading = true;
   commentText = '';
   commentsCount$: Observable<number>;
@@ -29,7 +31,11 @@ export class CommentsListComponent implements OnInit {
     private dialog: MatDialog,
     private userService: UserService,
     private tvshowService: TvShowService
-  ) { }
+  ) {
+    this.userCommentStatus$ = this.userService.getUserCommentStatus()
+      .pipe(
+        map((data) => data.allowCommenting));
+  }
 
   ngOnInit(): void {
     this.loadComments.emit(true);
@@ -74,7 +80,7 @@ export class CommentsListComponent implements OnInit {
       });
   }
 
-  deleteComment(deleted: boolean): void{
+  deleteComment(deleted: boolean): void {
     if (deleted) {
       this.updateComments();
     }

@@ -10,6 +10,7 @@ import { IComment } from '../interfaces/comment';
 import { IReturnedComment } from '../interfaces/returned-comment';
 import { ITvShow } from '../interfaces/tv-show';
 import { IUpdateUser } from '../interfaces/update-user';
+import { IUserCommentStatus } from '../interfaces/user-comment-status';
 import { CommentService } from './comment.service';
 import { StorageService } from './storage.service';
 import { TvShowService } from './tv-show.service';
@@ -152,6 +153,13 @@ export class UserService {
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}` + propAddon;
 
     return this.http.get<IReturnedComment>(url);
+  }
+
+  getUserCommentStatus(): Observable<IUserCommentStatus>{
+    const propAddon = '?property=allowCommenting';
+    const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}` + propAddon;
+
+    return this.http.get<IUserCommentStatus>(url);
   }
 
   updateUserData(user: IUpdateUser): Observable<IUserLogin> {

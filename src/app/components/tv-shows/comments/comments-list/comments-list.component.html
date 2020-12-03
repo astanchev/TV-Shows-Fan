@@ -1,5 +1,15 @@
-<button *ngIf="!isAdmin" class="btn btn-comment" (click)="openDialog()" mat-raised-button
-  [disabled]="!isFan">Comment</button>
+<ng-template #button>
+  <button *ngIf="!isAdmin" class="btn btn-comment" (click)="openDialog()" mat-raised-button
+    [disabled]="!isFan">Comment</button>
+</ng-template>
+
+<ng-template #text>
+  <article class="text-ban">
+    <h1>You are not allowed to comment!</h1>
+  </article>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="(userCommentStatus$ | async) ? button : text"></ng-container>
 
 <section class="comments-list">
   <ng-template #commentsList>
@@ -8,7 +18,8 @@
     currentPage: page,
     totalItems: commentsCount$ | async
   }">
-      <app-comments-item [comment]="comment" [likedComments$]="likedComments$" (deleted)="deleteComment($event)"></app-comments-item>
+      <app-comments-item [comment]="comment" [likedComments$]="likedComments$" (deleted)="deleteComment($event)">
+      </app-comments-item>
     </p>
     <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
   </ng-template>
