@@ -8,10 +8,10 @@
   </mat-card-content>
   <mat-card-actions class="card-buttons">
     <section class="vote-buttons">
-      <button mat-icon-button [matBadge]="comment.likes" matBadgePosition="after" matBadgeColor="primary" [disabled]="isVotedComment" (click)="upVoteComment()">
+      <button mat-icon-button [matBadge]="comment.likes" matBadgePosition="after" matBadgeColor="primary" [disabled]="isVotedComment || isAdmin" (click)="upVoteComment()">
         <mat-icon>thumb_up_alt</mat-icon>
       </button>
-      <button mat-icon-button [matBadge]="comment.dislikes" matBadgePosition="after" matBadgeColor="warn" [disabled]="isVotedComment" (click)="downVoteComment()">
+      <button mat-icon-button [matBadge]="comment.dislikes" matBadgePosition="after" matBadgeColor="warn" [disabled]="isVotedComment || isAdmin" (click)="downVoteComment()">
         <mat-icon>thumb_down_alt</mat-icon>
       </button>
     </section>
