@@ -81,7 +81,7 @@ export class TvShowsDetailComponent implements OnInit {
   }
 
 
-  showLoader(loadComments: boolean) {
+  showLoader(loadComments: boolean): void {
     this.loadingComments = loadComments;
   }
 

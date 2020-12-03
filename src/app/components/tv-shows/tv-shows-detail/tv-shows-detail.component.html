@@ -48,7 +48,7 @@
     </section>
 
     <section class="comments">
-      <app-comments-list [isAdmin]="isAdmin" [isFan]="isFan" [tvshow]="tvshow" (loadComments)="showLoader()"></app-comments-list>
+      <app-comments-list [isAdmin]="isAdmin" [isFan]="isFan" [tvshowID]="tvshow.objectId" (loadComments)="showLoader()"></app-comments-list>
     </section>
 
   </ng-template>

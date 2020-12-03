@@ -6,21 +6,25 @@ import { mergeMap, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
 import { IUserLogin } from '../../core/interfaces/user-login';
+import { IComment } from '../interfaces/comment';
+import { IReturnedComment } from '../interfaces/returned-comment';
 import { ITvShow } from '../interfaces/tv-show';
 import { IUpdateUser } from '../interfaces/update-user';
+import { CommentService } from './comment.service';
 import { StorageService } from './storage.service';
 import { TvShowService } from './tv-show.service';
 
 @Injectable()
 export class UserService {
-  username: string = '';
-  userId: string = '';
-  userToken: string = '';
-  isAdministrator: boolean = false;
+  username = '';
+  userId = '';
+  userToken = '';
+  isAdministrator = false;
 
   constructor(
     private storage: StorageService,
     private tvshowService: TvShowService,
+    private commentService: CommentService,
     private http: HttpClient,
     private router: Router) {
 
@@ -48,7 +52,7 @@ export class UserService {
   login(username: string, password: string): void {
     const user = {
       login: username,
-      password: password
+      password
     };
 
     const url: string = environment.backendless.endpoints.login;
@@ -58,10 +62,10 @@ export class UserService {
       .pipe(tap((data) => {
         this.username = data.username;
         this.userId = data.objectId;
-        this.userToken = data["user-token"];
+        this.userToken = data['user-token'];
         this.storage.setItem('username', data.username);
         this.storage.setItem('userId', data.objectId);
-        this.storage.setItem('userToken', data["user-token"]);
+        this.storage.setItem('userToken', data['user-token']);
         this.getUserRoles();
       }))
       .subscribe(_ => {
@@ -71,9 +75,9 @@ export class UserService {
 
   register(username: string, email: string, password: string): void {
     const user = {
-      username: username,
-      email: email,
-      password: password
+      username,
+      email,
+      password
     };
 
     const url: string = environment.backendless.endpoints.register;
@@ -127,6 +131,13 @@ export class UserService {
     return this.http.get<IUserLogin>(url);
   }
 
+  getUserLikedComments(): Observable<IReturnedComment> {
+    const propAddon = '?property=likedComments';
+    const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}` + propAddon;
+
+    return this.http.get<IReturnedComment>(url);
+  }
+
   updateUserData(user: IUpdateUser): Observable<IUserLogin> {
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
 
@@ -141,7 +152,7 @@ export class UserService {
     return this.getUserByID().pipe(
       switchMap(
         (user: IUserLogin) => {
-          let fanGroups: string[] = !!user.fanGroups ?
+          const fanGroups: string[] = !!user.fanGroups ?
             user.fanGroups
               .split(', ')
               .filter(x => x !== '') :
@@ -235,6 +246,72 @@ export class UserService {
     );
 
     return tvshowSub$.pipe(mergeMap(() => userSub$));
+  }
+
+  likeComment(commentID: string): Observable<IComment> {
+    const urlUser: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    const commentSub$ = this.commentService.getCommentById(commentID)
+      .pipe(
+        switchMap(
+          (comment: IComment) => {
+            const likes: number = comment.likes;
+            const data = { likes: likes + 1 };
+
+            return this.commentService.updateComment(data, commentID);
+          }
+        )
+      );
+
+    const userSub$ = this.getUserByID().pipe(
+      switchMap(
+        (user: IUserLogin) => {
+          const likedComments: string[] = !!user.likedComments ?
+            user.likedComments
+              .split(', ')
+              .filter(x => x !== '') :
+            [];
+
+          likedComments.push(commentID);
+          return this.http.put<IUserLogin>(urlUser, JSON.stringify({ likedComments: likedComments.join(', ') }));
+        }
+      )
+    );
+
+    return userSub$.pipe(mergeMap(() => commentSub$));
+  }
+
+  dislikeComment(commentID: string): Observable<IComment> {
+    const urlUser: string = environment.backendless.endpoints.updateUser + `/${this.userId}`;
+
+    const commentSub$ = this.commentService.getCommentById(commentID)
+      .pipe(
+        switchMap(
+          (comment: IComment) => {
+            const dislikes: number = comment.dislikes;
+            const data = { dislikes: dislikes + 1 };
+
+            return this.commentService.updateComment(data, commentID);
+          }
+        )
+      );
+
+    const userSub$ = this.getUserByID().pipe(
+      switchMap(
+        (user: IUserLogin) => {
+          const likedComments: string[] = !!user.likedComments ?
+            user.likedComments
+              .split(', ')
+              .filter(x => x !== '') :
+            [];
+
+          likedComments.push(commentID);
+          return this.http.put<IUserLogin>(urlUser, JSON.stringify({ likedComments: likedComments.join(', ') }));
+        }
+      )
+    );
+
+    return userSub$.pipe(mergeMap(() => commentSub$));
   }
 
 }

@@ -9,6 +9,12 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
+  getCommentById(commentId: string): Observable<IComment> {
+    const url: string = environment.backendless.endpoints.comment + `/${commentId}`;
+
+    return this.http.get<IComment>(url);
+  }
+
   createComment(comment: any): Observable<IComment> {
     const url: string = environment.backendless.endpoints.comment;
 

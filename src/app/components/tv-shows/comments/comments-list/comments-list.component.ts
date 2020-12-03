@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { IComment } from 'src/app/core/interfaces/comment';
-import { ITvShow } from 'src/app/core/interfaces/tv-show';
+import { IReturnedComment } from 'src/app/core/interfaces/returned-comment';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { CommentsNewComponent } from '../comments-new/comments-new.component';
@@ -15,8 +15,9 @@ import { CommentsNewComponent } from '../comments-new/comments-new.component';
 export class CommentsListComponent implements OnInit {
   @Input() isAdmin: boolean;
   @Input() isFan: boolean;
-  @Input() tvshow: ITvShow;
+  @Input() tvshowID: string;
   @Output() loadComments: EventEmitter<boolean> = new EventEmitter<boolean>();
+  likedComments$: Observable<IReturnedComment>;
   loading = true;
   commentText = '';
   commentsCount$: Observable<number>;
@@ -32,8 +33,9 @@ export class CommentsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadComments.emit(true);
-    this.commentsCount$ = this.tvshowService.getTVShowCommentsCount(this.tvshow.objectId);
-    this.tvshowService.getTVShowComments(this.tvshow.objectId, this.page)
+    this.commentsCount$ = this.tvshowService.getTVShowCommentsCount(this.tvshowID);
+    this.likedComments$ = this.userService.getUserLikedComments();
+    this.tvshowService.getTVShowComments(this.tvshowID, this.page)
       .subscribe((data) => {
         this.comments = data;
         this.loading = false;
@@ -49,7 +51,7 @@ export class CommentsListComponent implements OnInit {
         fromUser: this.userService.username,
         text: result
       };
-      const tvshowID = this.tvshow.objectId;
+      const tvshowID = this.tvshowID;
 
       this.tvshowService.addCommentToTVShow(tvshowID, comment).subscribe(() => this.ngOnInit());
     });
@@ -64,7 +66,7 @@ export class CommentsListComponent implements OnInit {
   updateComments(): void {
     this.loading = true;
     this.tvshowService
-      .getTVShowComments(this.tvshow.objectId, this.page)
+      .getTVShowComments(this.tvshowID, this.page)
       .subscribe((data) => {
         this.comments = data;
         this.loading = false;
