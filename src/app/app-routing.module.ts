@@ -6,6 +6,8 @@ import { AboutComponent } from './components/general/about/about.component';
 import { HomeComponent } from './components/general/home/home.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { UserListComponent } from './components/user/user-list/user-list.component';
+import { AdminGuard } from './core/guards/admin.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { LoadGuard } from './core/guards/load.guard';
@@ -39,6 +41,11 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'users',
+    component: UserListComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'tv-shows',
