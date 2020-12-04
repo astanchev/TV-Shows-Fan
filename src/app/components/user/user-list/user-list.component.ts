@@ -30,9 +30,4 @@ export class UserListComponent implements OnInit {
     this.page = event;
     this.ngOnInit();
   }
-
-  toggleBan(userId: string, allow: boolean): void{
-    this.userService.changeUserCommentStatus(userId, allow).subscribe(_ => this.ngOnInit());
-  }
-
 }

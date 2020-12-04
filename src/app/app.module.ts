@@ -19,6 +19,7 @@ import { CommentService } from './core/services/comment.service';
 import { storageServiceProvider } from './core/services/storage.service';
 import { TvShowService } from './core/services/tv-show.service';
 import { UserService } from './core/services/user.service';
+import { UserListItemComponent } from './components/user/user-list-item/user-list-item.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { UserService } from './core/services/user.service';
     AppComponent,
     ProfileComponent,
     UserListComponent,
-    UserCommentsCountComponent
+    UserCommentsCountComponent,
+    UserListItemComponent
   ],
   imports: [
     BrowserModule,

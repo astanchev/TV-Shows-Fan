@@ -1,11 +1,6 @@
 .users-list {
-  width: 60%;
+  width: 80%;
   margin: 100px auto;
-}
-
-table,
-tbody {
-  width: 100%;
 }
 
 h1 {
@@ -26,39 +21,17 @@ h1 {
   border-bottom: 1px solid aquamarine;
 }
 
-.table-row td {
-  padding: 10px 20px;
-  border-bottom: 1px solid aquamarine;
-  text-align: center;
-  color: white;
-}
-
-.chip-holder {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.chip{
-  padding: 5px 10px;
-  border-radius: 15px;
-  border: none;
-  background-color: rgb(149, 245, 213);
-  color: black;
-}
-
 .loader-holder{
   display: block;
   width: 20%;
   margin: 100px auto;
 }
 
-.pageing{
+.paging{
   padding: 20px 0;
   text-align: center;
 }
 
-.table-body{
+.app-user-list-item{
   width: 100%;
 }

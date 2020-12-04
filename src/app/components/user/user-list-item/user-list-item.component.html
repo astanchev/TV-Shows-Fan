@@ -1,0 +1,16 @@
+<!-- <tr class="table-row"> -->
+  <td>{{user.username}}</td>
+  <td>{{user.email}}</td>
+  <td>
+    <article class="chip-holder" *ngFor="let show of user.fanOf">
+      <p class="chip">{{show}}</p>
+    </article>
+  </td>
+  <td>
+    <app-user-comments-count [userId]="user.userID"></app-user-comments-count>
+  </td>
+  <td *ngIf="!user.isAllowedCommenting"><button mat-raised-button color="primary"
+      (click)="toggleBan(user.userID, true)">Allow</button></td>
+  <td *ngIf="user.isAllowedCommenting"><button mat-raised-button color="warn"
+      (click)="toggleBan(user.userID, false)">Ban</button></td>
+<!-- </tr> -->

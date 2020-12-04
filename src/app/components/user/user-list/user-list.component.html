@@ -2,7 +2,7 @@
   <h1>TV Shows Fan - users</h1>
 
   <ng-template #tableBody>
-    <table cellspacing="0">
+    <table class="users-list" cellspacing="0">
       <thead>
         <tr class="table-header">
           <th>Username</th>
@@ -13,26 +13,19 @@
         </tr>
       </thead>
 
-      <tbody class="table-body">
-        <tr class="table-row" *ngFor="let user of users | paginate: {
-            itemsPerPage: pageSize,
-            currentPage: page,
-            totalItems: totalUsers
-          }">
-          <td>{{user.username}}</td>
-          <td>{{user.email}}</td>
-          <td>
-            <article class="chip-holder" *ngFor="let show of user.fanOf">
-              <p class="chip">{{show}}</p>
-            </article>
-          </td>
-          <td><app-user-comments-count [userId]="user.userID"></app-user-comments-count></td>
-          <td *ngIf="!user.isAllowedCommenting"><button mat-raised-button color="primary" (click)="toggleBan(user.userID, true)">Allow commenting</button></td>
-          <td *ngIf="user.isAllowedCommenting"><button mat-raised-button color="warn" (click)="toggleBan(user.userID, false)">Ban commenting</button></td>
-        </tr>
+      <tbody>
+        <ng-container *ngFor="let user of users | paginate: {
+          itemsPerPage: pageSize,
+          currentPage: page,
+          totalItems: totalUsers
+        }">
+        <tr class="table-row" app-user-list-item [user]="user"></tr>
+        </ng-container>
       </tbody>
+
     </table>
-    <p class="pageing">
+
+    <p class="paging">
       <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
     </p>
   </ng-template>

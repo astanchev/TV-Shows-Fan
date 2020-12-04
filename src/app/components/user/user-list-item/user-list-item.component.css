@@ -1,0 +1,22 @@
+td {
+    padding: 10px 20px;
+    border-bottom: 1px solid aquamarine;
+    text-align: center;
+    color: white;
+    vertical-align: middle;
+  }
+
+  .chip-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .chip{
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(149, 245, 213);
+    color: black;
+  }
