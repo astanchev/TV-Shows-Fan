@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { mergeMap, switchMap, tap } from 'rxjs/operators';
+import { concatMap, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../core/interfaces/user';
 import { IUserLogin } from '../../core/interfaces/user-login';
@@ -11,6 +11,7 @@ import { IReturnedComment } from '../interfaces/returned-comment';
 import { ITvShow } from '../interfaces/tv-show';
 import { IUpdateUser } from '../interfaces/update-user';
 import { IUserCommentStatus } from '../interfaces/user-comment-status';
+import { IUserDisplay } from '../interfaces/user-display';
 import { CommentService } from './comment.service';
 import { StorageService } from './storage.service';
 import { TvShowService } from './tv-show.service';
@@ -132,15 +133,25 @@ export class UserService {
     return this.http.get<IUserLogin>(url);
   }
 
-  getAllUsers(page: number): Observable<IUserLogin>{
+  getAllUsers(page: number): Observable<IUserDisplay[]> {
     const searchAddOn = `&where=${escape(`username != 'Administrator'`)}`;
-    const pagingQuery = `?pageSize=5&offset=${(page - 1) * 5}`;
+    const pagingQuery = `?pageSize=3&offset=${(page - 1) * 3}`;
     const url = environment.backendless.endpoints.user + pagingQuery + searchAddOn;
 
-    return this.http.get<IUserLogin>(url);
+    return this.http.get<IUserLogin[]>(url)
+      .pipe(
+        map((data: IUserLogin[]) => data.map((u) => {
+          return {
+            username: u.username,
+            userID: u.objectId,
+            email: u.email,
+            fanOf: u.likedShows ? u.likedShows.split(', ') : [],
+            isAllowedCommenting: u.allowCommenting
+          };
+        })));
   }
 
-  getAllUsersCount(): Observable<number>{
+  getAllUsersCount(): Observable<number> {
     const searchAddOn = `?where=${escape(`username != 'Administrator'`)}`;
     const countQuery = `&property=Count(username)`;
     const url = environment.backendless.endpoints.user + searchAddOn + countQuery;
@@ -155,7 +166,7 @@ export class UserService {
     return this.http.get<IReturnedComment>(url);
   }
 
-  getUserCommentStatus(): Observable<IUserCommentStatus>{
+  getUserCommentStatus(): Observable<IUserCommentStatus> {
     const propAddon = '?property=allowCommenting';
     const url: string = environment.backendless.endpoints.updateUser + `/${this.userId}` + propAddon;
 
@@ -235,7 +246,7 @@ export class UserService {
       )
     );
 
-    return tvshowSub$.pipe(mergeMap(() => userSub$));
+    return tvshowSub$.pipe(concatMap(() => userSub$));
   }
 
   dislikeTVShow(tvshowName: string, tvshowID: string): Observable<IUserLogin> {
@@ -268,7 +279,7 @@ export class UserService {
       )
     );
 
-    return tvshowSub$.pipe(mergeMap(() => userSub$));
+    return tvshowSub$.pipe(concatMap(() => userSub$));
   }
 
   likeComment(commentID: string): Observable<IComment> {
@@ -301,7 +312,7 @@ export class UserService {
       )
     );
 
-    return userSub$.pipe(mergeMap(() => commentSub$));
+    return userSub$.pipe(concatMap(() => commentSub$));
   }
 
   dislikeComment(commentID: string): Observable<IComment> {
@@ -334,7 +345,13 @@ export class UserService {
       )
     );
 
-    return userSub$.pipe(mergeMap(() => commentSub$));
+    return userSub$.pipe(concatMap(() => commentSub$));
+  }
+
+  changeUserCommentStatus(userID: string, allow: boolean): Observable<IUserLogin>{
+    const url: string = environment.backendless.endpoints.updateUser + `/${userID}`;
+
+    return this.http.put<IUserLogin>(url, JSON.stringify({ allowCommenting: allow }));
   }
 
 }

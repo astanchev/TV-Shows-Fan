@@ -12,7 +12,7 @@ export class TvShowsListComponent implements OnInit {
   loading = true;
   tvshows: ITvShow[];
   totalTVShows: number;
-  pageSize = 5;
+  pageSize = 3;
   page = 1;
 
   get isAdmin(): boolean {
@@ -39,4 +39,5 @@ export class TvShowsListComponent implements OnInit {
   getPage(event): void {
     this.page = event;
   }
+
 }

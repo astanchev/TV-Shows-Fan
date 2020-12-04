@@ -1,6 +1,6 @@
 .about{
     width: 60%;
-    margin: 5em auto;
+    margin: 150px auto;
     text-align: center;
 }
 
@@ -28,4 +28,5 @@
     font-style: oblique;
     text-transform: uppercase;
     color: aquamarine;
+    margin-top: 50px;
 }

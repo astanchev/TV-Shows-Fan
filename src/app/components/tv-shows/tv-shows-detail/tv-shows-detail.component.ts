@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import { concatMap, tap } from 'rxjs/operators';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { IUserLogin } from 'src/app/core/interfaces/user-login';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
@@ -56,7 +56,7 @@ export class TvShowsDetailComponent implements OnInit {
         tap((data) => { this.tvshow = data; })
       );
 
-    this.userSub$.pipe(mergeMap(() => this.tvshowSub$)).subscribe();
+    this.userSub$.pipe(concatMap(() => this.tvshowSub$)).subscribe();
   }
 
   joinFanGroup(): void {

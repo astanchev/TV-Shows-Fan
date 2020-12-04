@@ -11,6 +11,7 @@
     overflow: hidden;
     border-radius: 10px;
     margin-right: 30px;
+    box-shadow: 5px 5px 15px 5px #45c8d1;
 }
 
 .image-holder img{

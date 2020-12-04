@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 body {
   width: 80%;
-  margin: 0 auto;
+  margin: 50px auto;
   background: #d0d6e0;
   color: white;
   font-family: "Roboto", sans-serif;
@@ -25,7 +25,7 @@ body p {
 
 svg {
   display: block;
-  margin: 50px auto;
+  margin: 80px auto;
   overflow: visible !important;
 }
 svg #robot_1_ {
