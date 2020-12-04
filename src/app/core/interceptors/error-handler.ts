@@ -15,8 +15,8 @@ import { catchError } from 'rxjs/operators';
       return next
                 .handle(req)
                 .pipe(catchError((err) => {
-                        this.snackbar.open(err.error?.message, 'Undo', {
-                        duration: 3000
+                        this.snackbar.open(err.error?.message, 'Cancel', {
+                        duration: 5000
                         });
                         throw err;
                 }));
