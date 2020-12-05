@@ -11,6 +11,7 @@ import { GeneralModule } from './components/general/general.module';
 import { SharedModule } from './components/shared/shared.module';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { UserCommentsCountComponent } from './components/user/user-comments-count/user-comments-count.component';
+import { UserListItemComponent } from './components/user/user-list-item/user-list-item.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
 import { RouteHandlerInterceptor } from './core/interceptors/route-handler';
@@ -19,8 +20,6 @@ import { CommentService } from './core/services/comment.service';
 import { storageServiceProvider } from './core/services/storage.service';
 import { TvShowService } from './core/services/tv-show.service';
 import { UserService } from './core/services/user.service';
-import { UserListItemComponent } from './components/user/user-list-item/user-list-item.component';
-import { UsersFilterComponent } from './components/user/users-filter/users-filter.component';
 
 
 @NgModule({
@@ -29,19 +28,18 @@ import { UsersFilterComponent } from './components/user/users-filter/users-filte
     ProfileComponent,
     UserListComponent,
     UserCommentsCountComponent,
-    UserListItemComponent,
-    UsersFilterComponent
+    UserListItemComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    AuthenticationModule,
     HttpClientModule,
     NgxPaginationModule,
     ReactiveFormsModule,
     FormsModule,
+    AuthenticationModule,
     SharedModule,
     GeneralModule,
   ],

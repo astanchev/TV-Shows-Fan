@@ -1,11 +1,6 @@
 <section class="users-list">
   <h1>TV Shows Fan - users</h1>
 
-  <section class="users-filter">
-    <app-users-filter [page]="page" (loading)="showLoading($event)"
-    (users)="getUsers($event)"></app-users-filter>
-  </section>
-
   <ng-template #tableBody>
     <table class="user-list" cellspacing="0">
       <thead>
@@ -24,7 +19,7 @@
           currentPage: page,
           totalItems: totalUsers
         }">
-        <tr class="table-row" app-user-list-item [user]="user"></tr>
+          <tr class="table-row" app-user-list-item [user]="user"></tr>
         </ng-container>
       </tbody>
 

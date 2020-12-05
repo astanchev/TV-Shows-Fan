@@ -133,8 +133,8 @@ export class UserService {
     return this.http.get<IUserLogin>(url);
   }
 
-  getAllUsers(page: number, search: string): Observable<IUserDisplay[]> {
-    const searchAddOn = `&where=${escape(`username != 'Administrator' and username LIKE '%${search}%'`)}`;
+  getAllUsers(page: number): Observable<IUserDisplay[]> {
+    const searchAddOn = `&where=${escape(`username != 'Administrator'`)}`;
     const pagingQuery = `?pageSize=3&offset=${(page - 1) * 3}`;
     const url = environment.backendless.endpoints.user + pagingQuery + searchAddOn;
 
