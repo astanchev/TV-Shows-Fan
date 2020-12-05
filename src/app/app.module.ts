@@ -20,6 +20,7 @@ import { storageServiceProvider } from './core/services/storage.service';
 import { TvShowService } from './core/services/tv-show.service';
 import { UserService } from './core/services/user.service';
 import { UserListItemComponent } from './components/user/user-list-item/user-list-item.component';
+import { UsersFilterComponent } from './components/user/users-filter/users-filter.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { UserListItemComponent } from './components/user/user-list-item/user-lis
     ProfileComponent,
     UserListComponent,
     UserCommentsCountComponent,
-    UserListItemComponent
+    UserListItemComponent,
+    UsersFilterComponent
   ],
   imports: [
     BrowserModule,

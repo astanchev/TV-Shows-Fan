@@ -17,17 +17,18 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loading = true;
     this.userService.getAllUsersCount().subscribe((data) => this.totalUsers = data);
-    this.userService.getAllUsers(this.page)
-                      .subscribe((data) => {
-                        this.users = data;
-                        this.loading = false;
-                      });
   }
 
   getPage(event): void {
     this.page = event;
-    this.ngOnInit();
+  }
+
+  showLoading(loading: boolean): void {
+    this.loading = loading;
+  }
+
+  getUsers(users: IUserDisplay[]): void {
+    this.users = users;
   }
 }

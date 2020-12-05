@@ -1,8 +1,13 @@
 <section class="users-list">
   <h1>TV Shows Fan - users</h1>
 
+  <section class="users-filter">
+    <app-users-filter [page]="page" (loading)="showLoading($event)"
+    (users)="getUsers($event)"></app-users-filter>
+  </section>
+
   <ng-template #tableBody>
-    <table class="users-list" cellspacing="0">
+    <table class="user-list" cellspacing="0">
       <thead>
         <tr class="table-header">
           <th>Username</th>

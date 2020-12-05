@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { ITvShowAdd } from 'src/app/core/interfaces/tv-show-add';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
@@ -11,11 +12,12 @@ import { imageUrlValidator } from 'src/app/core/validators/image-url';
   templateUrl: './tv-shows-edit.component.html',
   styleUrls: ['./tv-shows-edit.component.css']
 })
-export class TvShowsEditComponent implements OnInit {
+export class TvShowsEditComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
-  tvshowID: string = '';
+  tvshowID = '';
   tvshow: ITvShow;
-  loading: boolean = true;
+  loading = true;
+  routeSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +27,8 @@ export class TvShowsEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.tvshowID = params['id'];
+    this.routeSub = this.route.params.subscribe((params: Params) => {
+      this.tvshowID = params.id;
     });
 
     this.tvshowService.getTVShowByID(this.tvshowID).subscribe((data) => {
@@ -44,11 +46,15 @@ export class TvShowsEditComponent implements OnInit {
     });
   }
 
-  editTVShow() {
+  editTVShow(): void {
     const tvshow: ITvShowAdd = this.editForm.value;
 
     this.tvshowService.updateTVShow(tvshow, this.tvshowID)
       .subscribe(_ => this.router.navigate(['tv-shows', 'detail', this.tvshowID]));
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
   }
 
 }

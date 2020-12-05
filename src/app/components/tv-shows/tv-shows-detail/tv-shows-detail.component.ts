@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { IUserLogin } from 'src/app/core/interfaces/user-login';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './tv-shows-detail.component.html',
   styleUrls: ['./tv-shows-detail.component.css']
 })
-export class TvShowsDetailComponent implements OnInit {
+export class TvShowsDetailComponent implements OnInit, OnDestroy {
   tvshowID = '';
   tvshowName = '';
   loadingComments: boolean;
@@ -20,6 +20,7 @@ export class TvShowsDetailComponent implements OnInit {
   user: IUserLogin;
   isFan = false;
   isVotedForShow = false;
+  routeSub: Subscription;
 
   userSub$: Observable<IUserLogin>;
   tvshowSub$: Observable<ITvShow>;
@@ -38,7 +39,7 @@ export class TvShowsDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
+    this.routeSub = this.route.params.subscribe((params: Params) => {
       this.tvshowID = params.id;
     });
 
@@ -87,6 +88,10 @@ export class TvShowsDetailComponent implements OnInit {
 
   showLoader(loadComments: boolean): void {
     this.loadingComments = loadComments;
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
   }
 
 }
