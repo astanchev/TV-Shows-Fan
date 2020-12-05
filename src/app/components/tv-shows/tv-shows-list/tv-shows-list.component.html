@@ -31,7 +31,7 @@
       </section>
     </ng-template>
 
-    <ng-container *ngTemplateOutlet="tvshows ? list : noList"></ng-container>
+    <ng-container *ngTemplateOutlet="(tvshows && tvshows.length > 0) ? list : noList"></ng-container>
 
   </ng-template>
 
