@@ -9,10 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthenticationModule } from './components/authentication/authentication.module';
 import { GeneralModule } from './components/general/general.module';
 import { SharedModule } from './components/shared/shared.module';
-import { ProfileComponent } from './components/user/profile/profile.component';
-import { UserCommentsCountComponent } from './components/user/user-comments-count/user-comments-count.component';
-import { UserListItemComponent } from './components/user/user-list-item/user-list-item.component';
-import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserModule } from './components/user/user.module';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
 import { RouteHandlerInterceptor } from './core/interceptors/route-handler';
 import { MaterialModule } from './core/material/material.module';
@@ -24,11 +21,7 @@ import { UserService } from './core/services/user.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProfileComponent,
-    UserListComponent,
-    UserCommentsCountComponent,
-    UserListItemComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +35,7 @@ import { UserService } from './core/services/user.service';
     AuthenticationModule,
     SharedModule,
     GeneralModule,
+    UserModule
   ],
   providers: [
     UserService,
