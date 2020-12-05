@@ -53,13 +53,14 @@ export class CommentsListComponent implements OnInit {
     const dialogRef = this.dialog.open(CommentsNewComponent, { width: '400px' });
 
     dialogRef.afterClosed().subscribe(result => {
-      const comment = {
-        fromUser: this.userService.username,
-        text: result
-      };
-      const tvshowID = this.tvshowID;
-
-      this.tvshowService.addCommentToTVShow(tvshowID, comment).subscribe(() => this.ngOnInit());
+      if (result) {
+        const comment = {
+          fromUser: this.userService.username,
+          text: result
+        };
+        const tvshowID = this.tvshowID;
+        this.tvshowService.addCommentToTVShow(tvshowID, comment).subscribe(() => this.ngOnInit());
+      }
     });
   }
 
