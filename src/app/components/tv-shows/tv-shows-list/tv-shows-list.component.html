@@ -3,7 +3,7 @@
 
   <p class="component-holder">
     <app-tv-shows-search class="search-component" [page]="page" (loading)="showLoading($event)"
-      (tvshows)="getTVShows($event)">
+      (tvshows)="getTVShows($event)" (tvShowsCount)="getTVShowsCount($event)">
     </app-tv-shows-search>
   </p>
 </section>

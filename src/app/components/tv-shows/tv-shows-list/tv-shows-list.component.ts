@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { TvShowService } from 'src/app/core/services/tv-show.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -8,7 +8,7 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './tv-shows-list.component.html',
   styleUrls: ['./tv-shows-list.component.css']
 })
-export class TvShowsListComponent implements OnInit {
+export class TvShowsListComponent {
   loading = true;
   tvshows: ITvShow[];
   totalTVShows = 0;
@@ -24,10 +24,6 @@ export class TvShowsListComponent implements OnInit {
     private tvshowService: TvShowService
   ) { }
 
-  ngOnInit(): void {
-    this.tvshowService.getTVShowsCount().subscribe(count => this.totalTVShows = count);
-  }
-
   getTVShows(tvshows: ITvShow[]): void {
     this.tvshows = tvshows;
   }
@@ -38,6 +34,10 @@ export class TvShowsListComponent implements OnInit {
 
   getPage(event): void {
     this.page = event;
+  }
+
+  getTVShowsCount(event): void {
+    this.totalTVShows = event;
   }
 
 }

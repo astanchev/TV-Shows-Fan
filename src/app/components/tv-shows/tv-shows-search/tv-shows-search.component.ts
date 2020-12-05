@@ -9,6 +9,7 @@ import { TvShowService } from 'src/app/core/services/tv-show.service';
 export class TvShowsSearchComponent implements OnInit, OnChanges {
   @Output() tvshows: EventEmitter<ITvShow[]> = new EventEmitter<ITvShow[]>();
   @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() tvShowsCount: EventEmitter<number> = new EventEmitter<number>();
   @Input() page: number;
   search = '';
 
@@ -16,15 +17,18 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.searchTVShows({search: ''});
+    this.getTVShowsCount();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.searchTVShows({search: this.search});
+    this.getTVShowsCount();
   }
 
   searchTVShows({ search }): void {
     this.loading.emit(true);
     this.search = search;
+    this.getTVShowsCount();
 
     this.tvshowService
       .getAllTVShows(search, this.page)
@@ -32,6 +36,11 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
         this.tvshows.emit(data);
         this.loading.emit(false);
       });
+  }
+
+  getTVShowsCount(): void {
+    this.tvshowService.getTVShowsCount(this.search)
+    .subscribe(data => this.tvShowsCount.emit(Number(data[0].count)));
   }
 
 }

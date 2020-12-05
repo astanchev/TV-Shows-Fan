@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IComment } from '../interfaces/comment';
+import { ICount } from '../interfaces/count';
 import { ITvShow } from '../interfaces/tv-show';
 import { ITvShowAdd } from '../interfaces/tv-show-add';
 import { CommentService } from './comment.service';
@@ -24,8 +25,12 @@ export class TvShowService {
     return this.http.get<ITvShow[]>(url);
   }
 
-  getTVShowsCount(): Observable<number> {
-    return this.http.get<number>(environment.backendless.endpoints.countTVShows);
+  getTVShowsCount(search: string): Observable<ICount[]> {
+    const searchAddOn = `?where=${escape(`category LIKE '%${search}%' OR name LIKE '%${search}%'`)}`;
+    const propertyAddOn = '&property=Count(objectId)';
+    const url: string = environment.backendless.endpoints.tvshow + searchAddOn + propertyAddOn;
+
+    return this.http.get<ICount[]>(url);
   }
 
   getTVShowByID(id: string): Observable<ITvShow> {
