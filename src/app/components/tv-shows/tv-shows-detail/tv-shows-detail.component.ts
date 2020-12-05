@@ -56,23 +56,27 @@ export class TvShowsDetailComponent implements OnInit {
         tap((data) => { this.tvshow = data; })
       );
 
+    this.loadData();
+  }
+
+  loadData(): void{
     this.userSub$.pipe(concatMap(() => this.tvshowSub$)).subscribe();
   }
 
   joinFanGroup(): void {
-    this.userService.joinFanGroup(this.tvshowName).subscribe(() => this.ngOnInit());
+    this.userService.joinFanGroup(this.tvshowName).subscribe(() => this.loadData());
   }
 
   leaveFanGroup(): void {
-    this.userService.leaveFanGroup(this.tvshowName).subscribe(() => this.ngOnInit());
+    this.userService.leaveFanGroup(this.tvshowName).subscribe(() => this.loadData());
   }
 
   upVote(): void {
-    this.userService.likeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.ngOnInit());
+    this.userService.likeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.loadData());
   }
 
   downVote(): void {
-    this.userService.dislikeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.ngOnInit());
+    this.userService.dislikeTVShow(this.tvshowName, this.tvshowID).subscribe(() => this.loadData());
   }
 
   deleteTVShow(): void {

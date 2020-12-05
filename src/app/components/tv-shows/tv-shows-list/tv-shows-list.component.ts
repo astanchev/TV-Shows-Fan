@@ -11,8 +11,8 @@ import { UserService } from 'src/app/core/services/user.service';
 export class TvShowsListComponent implements OnInit {
   loading = true;
   tvshows: ITvShow[];
-  totalTVShows: number;
-  pageSize = 3;
+  totalTVShows = 0;
+  pageSize = 5;
   page = 1;
 
   get isAdmin(): boolean {
@@ -25,11 +25,11 @@ export class TvShowsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.tvshowService.getTVShowsCount().subscribe(count => this.totalTVShows = count);
   }
 
   getTVShows(tvshows: ITvShow[]): void {
     this.tvshows = tvshows;
-    this.tvshowService.getTVShowsCount().subscribe((data) => this.totalTVShows = data);
   }
 
   showLoading(loading: boolean): void {

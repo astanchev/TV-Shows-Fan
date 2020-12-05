@@ -20,7 +20,7 @@ export class CommentsItemComponent implements OnInit {
     return this.comment.ownerId === this.userService.userId;
   }
 
-  get isAdmin(): boolean{
+  get isAdmin(): boolean {
     return this.userService.isAdmin;
   }
 

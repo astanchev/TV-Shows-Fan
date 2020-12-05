@@ -13,15 +13,21 @@
 
 <section class="comments-list">
   <ng-template #commentsList>
-    <p class="card-holder" *ngFor="let comment of comments | paginate: {
-    itemsPerPage: pageSize,
-    currentPage: page,
-    totalItems: commentsCount$ | async
-  }">
-      <app-comments-item [comment]="comment" [likedComments$]="likedComments$" (deleted)="deleteComment($event)">
-      </app-comments-item>
-    </p>
-    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+    <ng-container *ngIf="comments.length > 0">
+
+      <section  class="card-holder" *ngFor="let comment of comments | paginate: {
+      itemsPerPage: pageSize,
+      currentPage: page,
+      totalItems: commentsCount$ | async
+    }">
+        <app-comments-item [comment]="comment" [likedComments$]="likedComments$" (deleted)="deleteComment($event)">
+        </app-comments-item>
+      </section>
+
+      <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+
+
+    </ng-container>
   </ng-template>
 
   <ng-template #loader>

@@ -11,7 +11,7 @@ export class UserListComponent implements OnInit {
   loading = true;
   users: IUserDisplay[];
   totalUsers: number;
-  pageSize = 5;
+  pageSize = 3;
   page = 1;
 
   constructor(private userService: UserService) { }
