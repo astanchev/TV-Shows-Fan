@@ -74,18 +74,51 @@ Every user has to register and log in with username and password.
 * ***Unregistered user***
 
 Home
+
 ![Unregistered user Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Home_not_logged.png)
+
+
 About
+
 ![Unregistered user About](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/About_not_logged.png)
+
+
 Login
+
 ![Unregistered user Login](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Login.png)
+
+
 Register
+
 ![Unregistered user Register](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Register.png)
+
 
 
 * ***Administrator***
 
-![Administrator](https://github.com/astanchev/...png)
+TV Shows
+
+![Administrator TV Shows](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_TV_Shows.png)
+
+
+Add Show
+
+![Administrator Add Show](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_add_show.png)
+
+
+TV Show details
+
+![Administrator TV Show details](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_details.png)
+
+
+Edit TV Show
+
+![Administrator Edit TV Show](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_edit_show.png)
+
+
+Users
+
+![Administrator Users](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_users.png)
 
 
 * ***Registered user***
