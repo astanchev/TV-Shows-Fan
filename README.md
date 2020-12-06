@@ -92,7 +92,7 @@ Register
 
 ![Unregistered user Register](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Register.png)
 \
-\
+
 \
 * ***Administrator***
 
@@ -120,7 +120,7 @@ Users
 
 ![Administrator Users](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_users.png)
 \
-\
+
 \
 * ***Registered user***
 
@@ -148,7 +148,7 @@ Users
 
 ![User Details not fan](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Details_not_fan.png)
 \
-\
+
 \
 * ***Error page***
 
