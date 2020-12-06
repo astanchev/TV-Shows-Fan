@@ -123,7 +123,31 @@ Users
 
 * ***Registered user***
 
-![User Home](https://github.com/astanchev/...png)
+ Home
+
+![User Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Home_logged.png)
+
+
+ TV Shows
+
+![User TV Shows](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/TV_Shows_user.png)
+
+
+ Profile
+
+![User Profile](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Profile.png)
+
+
+ Details fan
+
+![User Details fan](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Details_fan.png)
+
+
+ Details not fan
+
+![User Details not fan](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Details_not_fan.png)
+
+
 
 * ***Error page***
 
