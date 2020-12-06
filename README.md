@@ -90,7 +90,6 @@ Every user has to register and log in with username and password.
 
 * Error page
 
-**Error page**
 ![User Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/404.png)
 
 ## License
