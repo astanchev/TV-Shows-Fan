@@ -91,9 +91,9 @@ Login
 Register
 
 ![Unregistered user Register](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Register.png)
-
-
-
+\
+\
+\
 * ***Administrator***
 
 TV Shows
@@ -119,8 +119,9 @@ Edit TV Show
 Users
 
 ![Administrator Users](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Admin_users.png)
-
-
+\
+\
+\
 * ***Registered user***
 
  Home
@@ -146,9 +147,9 @@ Users
  Details not fan
 
 ![User Details not fan](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Details_not_fan.png)
-
-
-
+\
+\
+\
 * ***Error page***
 
 ![User Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/404.png)
