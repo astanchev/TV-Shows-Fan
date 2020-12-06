@@ -17,11 +17,19 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
   constructor(private tvshowService: TvShowService) { }
 
   ngOnInit(): void {
-    this.searchTVShows({search: ''});
-    this.getTVShowsCount();
+    this.getTVShows(false);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.getTVShows(false);
+  }
+
+  searchTVShows({ search }): void {
+    this.search = search;
+    this.getTVShows(true);
+  }
+
+  getTVShows(changePage: boolean): void{
     this.loading.emit(true);
     this.getTVShowsCount();
 
@@ -30,20 +38,9 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
       .subscribe(data => {
         this.tvshows.emit(data);
         this.loading.emit(false);
-      });
-  }
-
-  searchTVShows({ search }): void {
-    this.loading.emit(true);
-    this.search = search;
-    this.getTVShowsCount();
-
-    this.tvshowService
-      .getAllTVShows(search, this.page)
-      .subscribe(data => {
-        this.tvshows.emit(data);
-        this.loading.emit(false);
-        this.changedPage.emit(1);
+        if (changePage) {
+          this.changedPage.emit(1);
+        }
       });
   }
 
