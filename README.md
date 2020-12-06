@@ -22,14 +22,14 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Getting Started
 
-Site guest (**visitor**) 
-* can only visit Info pages (*Home*, *About Us*, *Register*, *Login*) 
+Site guest (**visitor**)
+* can only visit Info pages (*Home*, *About*, *Register*, *Login*)
 
-Every user has to register and log in with username and password. 
+Every user has to register and log in with username and password.
 
 
 **Administrator** - created from site owner
-* See all tv-shows 
+* See all tv-shows
 * See tv-show details
 * Add tv-show
 * Edit tv-show
@@ -41,7 +41,7 @@ Every user has to register and log in with username and password.
 
 
 **User** - register
-* See all tv-shows 
+* See all tv-shows
 * See tv-show details
 * Can vote only once for tv-show
 * Can join or leave tv-show fan group
@@ -80,13 +80,18 @@ Every user has to register and log in with username and password.
 * Administrator
 
 **Administrator Home**
-![Administrator](https://github.com/astanchev/...png) 
+![Administrator](https://github.com/astanchev/...png)
 
 
 * Registered user
 
 **UserHome**
-![User Home](https://github.com/astanchev/...png) 
+![User Home](https://github.com/astanchev/...png)
+
+* Error page
+
+**Error page**
+![User Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/404.png)
 
 ## License
 
