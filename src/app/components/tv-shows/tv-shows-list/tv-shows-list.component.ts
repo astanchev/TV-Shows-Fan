@@ -40,4 +40,8 @@ export class TvShowsListComponent {
     this.totalTVShows = event;
   }
 
+  getChangedPage(event): void {
+    this.page = event;
+  }
+
 }

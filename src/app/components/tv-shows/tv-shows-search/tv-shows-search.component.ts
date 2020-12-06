@@ -10,6 +10,7 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
   @Output() tvshows: EventEmitter<ITvShow[]> = new EventEmitter<ITvShow[]>();
   @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() tvShowsCount: EventEmitter<number> = new EventEmitter<number>();
+  @Output() changedPage: EventEmitter<number> = new EventEmitter<number>();
   @Input() page: number;
   search = '';
 
@@ -21,8 +22,15 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.searchTVShows({search: this.search});
+    this.loading.emit(true);
     this.getTVShowsCount();
+
+    this.tvshowService
+      .getAllTVShows(this.search, this.page)
+      .subscribe(data => {
+        this.tvshows.emit(data);
+        this.loading.emit(false);
+      });
   }
 
   searchTVShows({ search }): void {
@@ -35,6 +43,7 @@ export class TvShowsSearchComponent implements OnInit, OnChanges {
       .subscribe(data => {
         this.tvshows.emit(data);
         this.loading.emit(false);
+        this.changedPage.emit(1);
       });
   }
 
