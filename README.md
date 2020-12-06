@@ -73,22 +73,19 @@ Every user has to register and log in with username and password.
 
 * Unregistered user
 
-**Home**
 ![Unregistered user](https://github.com/astanchev/...png)
 
 
 * Administrator
 
-**Administrator Home**
 ![Administrator](https://github.com/astanchev/...png)
 
 
 * Registered user
 
-**UserHome**
 ![User Home](https://github.com/astanchev/...png)
 
-* Error page
+* ***Error page***
 
 ![User Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/404.png)
 
