@@ -73,9 +73,13 @@ Every user has to register and log in with username and password.
 
 * ***Unregistered user***
 
+Home
 ![Unregistered user Home](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Home_not_logged.png)
+About
 ![Unregistered user About](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/About_not_logged.png)
+Login
 ![Unregistered user Login](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Login.png)
+Register
 ![Unregistered user Register](https://github.com/astanchev/TV-Shows-Fan/blob/master/images/Register.png)
 
 
