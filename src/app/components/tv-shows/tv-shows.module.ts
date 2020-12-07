@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MaterialModule } from 'src/app/core/material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { CommentsNewComponent } from './comments/comments-new/comments-new.component';
 import { CommentsModule } from './comments/comments.module';
 import { TvShowsAddComponent } from './tv-shows-add/tv-shows-add.component';
 import { TvShowsDetailComponent } from './tv-shows-detail/tv-shows-detail.component';
@@ -33,6 +34,7 @@ import { TvShowsSearchComponent } from './tv-shows-search/tv-shows-search.compon
     NgxPaginationModule,
     CommentsModule,
     TvShowsRoutingModule
-  ]
+  ],
+  entryComponents: [CommentsNewComponent]
 })
 export class TvShowsModule { }
