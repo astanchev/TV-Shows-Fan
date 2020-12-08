@@ -23,3 +23,9 @@ body {
   background-color: #303030;
   color: wheat;
 }
+
+main>router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
