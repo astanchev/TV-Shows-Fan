@@ -12,9 +12,13 @@ form {
   align-items: center;
 }
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 600px) {
   .register-section {
-    width: 80%;
+    width: 90%;
+  }
+
+  form {
+    width: 100%;
   }
 }
 
@@ -41,7 +45,7 @@ input:-webkit-autofill:active {
   transition-delay: 9999s;
 }
 
-.btn-holder{
+.btn-holder {
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -60,7 +64,7 @@ input:-webkit-autofill:active {
   color: rgb(0, 0, 0);
 }
 
-.btn.btn-register:disabled{
+.btn.btn-register:disabled {
   background-color: rgb(196, 196, 196);
   color: rgb(97, 97, 97);
 }

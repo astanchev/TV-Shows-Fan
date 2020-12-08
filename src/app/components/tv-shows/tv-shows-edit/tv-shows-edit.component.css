@@ -12,6 +12,16 @@ form {
   align-items: center;
 }
 
+@media screen and (max-width: 600px) {
+  .edit-section {
+    width: 90%;
+  }
+
+  form {
+    width: 100%;
+  }
+}
+
 ::placeholder,
 .mat-hint {
   color: wheat;
