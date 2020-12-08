@@ -50,6 +50,7 @@ Every user has to register and log in with username and password.
 ## Used techniques and libraries
 * Angular Material
 * Ngx-pagination
+* Angular animations
 * Reactive forms
 * Template forms
 * CanActivate guards
