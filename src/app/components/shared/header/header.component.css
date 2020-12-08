@@ -49,6 +49,7 @@
   background-color: rgb(244, 245, 245);
   color: black;
   flex-direction: column;
+  z-index: 2;
 }
 
 .hidden-navigation-buttons li {
