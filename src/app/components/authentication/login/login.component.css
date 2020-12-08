@@ -1,5 +1,6 @@
 form {
     padding: 20px;
+    width: 600px;
   }
 
   .login-section {
@@ -20,10 +21,6 @@ form {
   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline,
   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
     color: rgb(250, 221, 248);
-  }
-
-  form{
-      width: 600px;
   }
 
   .mat-form-field{

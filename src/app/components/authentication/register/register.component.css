@@ -1,5 +1,6 @@
 form {
   padding: 20px;
+  width: 600px;
 }
 
 .register-section {
@@ -11,6 +12,12 @@ form {
   align-items: center;
 }
 
+@media screen and (max-width: 900px){
+  .register-section {
+    width: 80%;
+  }
+}
+
 ::placeholder,
 .mat-hint {
   color: wheat;
@@ -20,10 +27,6 @@ form {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline,
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
   color: rgb(250, 221, 248);
-}
-
-form {
-  width: 600px;
 }
 
 .mat-form-field {
