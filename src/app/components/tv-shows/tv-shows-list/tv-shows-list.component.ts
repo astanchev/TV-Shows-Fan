@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
-import { TvShowService } from 'src/app/core/services/tv-show.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -20,8 +19,7 @@ export class TvShowsListComponent {
   }
 
   constructor(
-    private userService: UserService,
-    private tvshowService: TvShowService
+    private userService: UserService
   ) { }
 
   getTVShows(tvshows: ITvShow[]): void {
