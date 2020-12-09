@@ -1,5 +1,5 @@
 import {
-    animate, query, style, transition, trigger
+    animate, query, sequence, style, transition, trigger
 } from '@angular/animations';
 
 export const fadeAnimation = trigger('fadeAnimation', [
@@ -16,4 +16,16 @@ export const fadeAnimation = trigger('fadeAnimation', [
             { optional: true }
         )
     ])
+]);
+
+export const listAnimation = trigger("anim", [
+  transition("void => *", [
+    style({ opacity: "0.7", transform: "translateY(-50px)" }),
+    sequence([
+      animate(
+        "1.3s ease",
+        style({ opacity: "1", transform: "translateY(0px)" })
+      )
+    ])
+  ])
 ]);

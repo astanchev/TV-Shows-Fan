@@ -13,7 +13,7 @@
   <ng-template #tvshowsList>
 
     <ng-template #list>
-      <p class="card-holder" *ngFor="let tvshow of tvshows| paginate: {
+      <p [@anim]="" class="card-holder" *ngFor="let tvshow of tvshows| paginate: {
       itemsPerPage: pageSize,
       currentPage: page,
       totalItems: totalTVShows

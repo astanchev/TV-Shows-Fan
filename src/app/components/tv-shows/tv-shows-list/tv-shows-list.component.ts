@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ITvShow } from 'src/app/core/interfaces/tv-show';
 import { UserService } from 'src/app/core/services/user.service';
+import { listAnimation } from "../../../core/animations/animation";
 
 @Component({
   selector: 'app-tv-shows-list',
   templateUrl: './tv-shows-list.component.html',
-  styleUrls: ['./tv-shows-list.component.css']
+  styleUrls: ['./tv-shows-list.component.css'],
+  animations: [ listAnimation ]
 })
 export class TvShowsListComponent {
   loading = true;
