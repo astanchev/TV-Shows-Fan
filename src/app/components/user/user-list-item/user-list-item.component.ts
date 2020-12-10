@@ -3,6 +3,7 @@ import { IUserDisplay } from 'src/app/core/interfaces/user-display';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: '[app-user-list-item]',
   templateUrl: './user-list-item.component.html',
   styleUrls: ['./user-list-item.component.css']

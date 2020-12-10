@@ -29,7 +29,7 @@ export class TvShowsAddComponent implements OnInit {
     });
   }
 
-  addTVShow(){
+  addTVShow(): void{
     const tvshow: ITvShowAdd = this.form.value;
 
     this.tvshowService.createTVShow(tvshow).subscribe(_ => this.router.navigate(['tv-shows']));

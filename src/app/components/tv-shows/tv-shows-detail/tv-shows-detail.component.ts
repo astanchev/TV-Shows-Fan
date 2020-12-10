@@ -13,14 +13,14 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./tv-shows-detail.component.css']
 })
 export class TvShowsDetailComponent implements OnInit, OnDestroy {
-  tvshowID = '';
-  tvshowName = '';
-  loadingComments: boolean;
   tvshow: ITvShow;
   user: IUserLogin;
+  routeSub: Subscription;
+  tvshowName = '';
+  tvshowID = '';
   isFan = false;
   isVotedForShow = false;
-  routeSub: Subscription;
+  loadingComments: boolean;
 
   userSub$: Observable<IUserLogin>;
   tvshowSub$: Observable<ITvShow>;

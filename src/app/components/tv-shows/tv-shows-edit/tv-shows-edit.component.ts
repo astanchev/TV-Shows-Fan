@@ -14,8 +14,8 @@ import { imageUrlValidator } from 'src/app/core/validators/image-url';
 })
 export class TvShowsEditComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
-  tvshowID = '';
   tvshow: ITvShow;
+  tvshowID = '';
   loading = true;
   routeSub: Subscription;
 

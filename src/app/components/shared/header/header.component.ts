@@ -8,9 +8,10 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('sideNav') sideNav: ElementRef;
+  isNavOpen = false;
 
-  @HostListener('document:click', ['$event']) DocumentClick(event: MouseEvent) {
-    let target = (event.target as Element);
+  @HostListener('document:click', ['$event']) DocumentClick(event: MouseEvent): void {
+    const target = (event.target as Element);
 
     if (target.classList.contains('hamburger') && this.isNavOpen === false) {
       this.renderer.setStyle(this.sideNav.nativeElement, 'display', 'flex');
@@ -21,8 +22,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  @HostListener('window:resize', ['$event']) onResize(event){
-    let pageWidth: number = event.target.innerWidth;
+  @HostListener('window:resize', ['$event']) onResize(event): void {
+    const pageWidth: number = event.target.innerWidth;
 
     if (pageWidth > 899 && this.isNavOpen === true) {
       this.renderer.setStyle(this.sideNav.nativeElement, 'display', 'none');
@@ -30,7 +31,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  isNavOpen: boolean = false;
 
   get isAdmin(): boolean {
     return  this.userService.isAdmin;

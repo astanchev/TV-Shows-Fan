@@ -13,7 +13,7 @@ import { UserService } from 'src/app/core/services/user.service';
 export class ProfileComponent implements OnInit {
   form: FormGroup;
   user: IUserLogin;
-  loading: boolean = true;
+  loading = true;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  update() {
+  update(): void {
     const user: IUpdateUser = this.form.value;
 
     this.userService.updateUserData(user)

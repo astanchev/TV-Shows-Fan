@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
+  login(): void {
     const { username, password } = this.form.value;
 
     this.userService.login(username, password);

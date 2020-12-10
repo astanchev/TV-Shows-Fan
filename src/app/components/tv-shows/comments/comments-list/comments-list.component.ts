@@ -20,10 +20,10 @@ export class CommentsListComponent implements OnInit {
   @Output() loadComments: EventEmitter<boolean> = new EventEmitter<boolean>();
   likedComments$: Observable<IReturnedComment>;
   userCommentStatus$: Observable<boolean>;
-  loading = true;
-  commentText = '';
   commentsCount$: Observable<number>;
   comments: IComment[];
+  commentText = '';
+  loading = true;
   pageSize = 5;
   page = 1;
 
