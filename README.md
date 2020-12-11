@@ -18,6 +18,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Getting Started
 
+Demo of the project can be seen [HERE](https://tv-shows-fan.stackblitz.io). My account doesn't allow me to upload *.ico and *.png files, so favicon is not presented and home image is from web source. Also some of my css is not working correctly on that server.
+
 Site guest (**visitor**)
 * can only visit Info pages (*Home*, *About*, *Register*, *Login*)
 
