@@ -13,8 +13,10 @@
 .footer-text-logo {
   color: #c594c3;
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
   text-decoration: none;
 }
+
 
 @media screen and (max-width: 350px) {
   .footer-text {
