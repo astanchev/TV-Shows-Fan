@@ -86,9 +86,10 @@ export class UserService {
 
     this.http
       .post<IUser>(url, JSON.stringify(user))
-      .subscribe(_ => {
+      .pipe(tap(_ => {
         this.login(username, password);
-      });
+      }))
+      .subscribe();
 
   }
 
@@ -115,16 +116,16 @@ export class UserService {
     const url: string = environment.backendless.endpoints.userRoles;
 
     this.http.get<string[]>(url)
-      .subscribe(
-        (data) => {
-          if (data.indexOf('Administrator') > -1) {
-            this.isAdministrator = true;
-            this.storage.setItem('isAdministrator', true);
-          } else {
-            this.isAdministrator = false;
-            this.storage.setItem('isAdministrator', false);
-          }
-        });
+      .pipe(tap((data) => {
+        if (data.indexOf('Administrator') > -1) {
+          this.isAdministrator = true;
+          this.storage.setItem('isAdministrator', true);
+        } else {
+          this.isAdministrator = false;
+          this.storage.setItem('isAdministrator', false);
+        }
+      }))
+      .subscribe();
   }
 
   getUserByID(): Observable<IUserLogin> {
@@ -348,7 +349,7 @@ export class UserService {
     return userSub$.pipe(concatMap(() => commentSub$));
   }
 
-  changeUserCommentStatus(userID: string, allow: boolean): Observable<IUserLogin>{
+  changeUserCommentStatus(userID: string, allow: boolean): Observable<IUserLogin> {
     const url: string = environment.backendless.endpoints.updateUser + `/${userID}`;
 
     return this.http.put<IUserLogin>(url, JSON.stringify({ allowCommenting: allow }));
